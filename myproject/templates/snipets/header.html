@@ -1,0 +1,29 @@
+<header id="header" class="header d-flex align-items-center sticky-top">
+  <div class="container-fluid container-xl position-relative d-flex align-items-center">
+    <a href="index.html" class="logo d-flex align-items-center me-auto">
+      <!-- Uncomment the line below if you also wish to use an image logo -->
+      <!-- <img src="assets/img/logo.png" alt=""> -->
+      <h1 class="sitename">JDIH UNIMA</h1>
+    </a>
+
+    <nav id="navmenu" class="navmenu">
+      <ul>
+        <li>
+          <a href="/" class="active">Home<br /></a>
+        </li>
+        <li><a href="#about">Tentang JDIH</a></li>
+        <li class="dropdown">
+          <a href="#"><span>Dokumen Hukum</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <ul>
+            <li><a href="{% url 'keputusan' %}">Keputusan Rektor</a></li>
+            <li><a href="{% url 'peraturan' %}">Peraturan</a></li>
+            <li><a href="{% url 'artikel' %}">Artikel</a></li>
+            <li><a href="{% url 'monografi' %}">Dokumen Lainnya</a></li>
+          </ul>
+        </li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+    </nav>
+  </div>
+</header>

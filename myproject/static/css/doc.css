@@ -1,0 +1,109 @@
+/* Document style */
+
+.section_dokumen {
+  text-align: center;
+}
+
+.container_dokumen {
+  display: flex;
+}
+
+.container_card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  /* background-color: red; */
+}
+
+.card {
+  flex: 1 1 calc(25% - 16px);
+  box-sizing: border-box;
+  background: #f4f4f4;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 0.5rem;
+}
+
+.section_dokumen .btn-get-started {
+  color: var(--contrast-color);
+  background: var(--accent-color);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  padding: 14px 2rem;
+  /* padding-top: 1rem; */
+  border-radius: 8px;
+  transition: 0.5s;
+  margin: 0.2rem;
+  text-align: center;
+  align-items: center;
+}
+
+.container_search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 2rem;
+}
+
+.section_dokumen .search {
+  /* background-color: grey; */
+  width: 50%;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.section_dokumen .search input {
+  text-align: center;
+  outline: none;
+  border: none;
+  width: 95%;
+  height: 3rem;
+  /* margin: 4px 0px 4px 4px; */
+}
+
+.section_dokumen .search a {
+  /* margin: 4px 4px 4px 0; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .card {
+    flex: 1 1 calc(50% - 16px); /* 2 card per baris di tablet */
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    flex: 1 1 100%; /* 1 card per baris di HP */
+  }
+}
+
+.btn-custom {
+  display: inline-block;
+  padding: 6px 2px;
+  background-color: #007bff; 
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: 0.3s ease;
+  width: 4rem ;
+}
+
+.btn-custom:hover {
+  background-color: #0056b3;
+}
+
+.row{
+  display: flex;
+  justify-content: center;
+}
