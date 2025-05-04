@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,26 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Jdih',
 ]
-
-JAZZMIN_SETTINGS = {
-    "site_title": "JDIH Admin",
-    "site_header": "JDIH Admin Panel",
-    "site_brand": "JDIH UNIMA",
-    "welcome_sign": "Selamat Datang di Panel Admin JDIH",
-    "copyright": "© 2025",
-    "search_model": ["jdih.Dokumen"],  # ganti dengan model yang kamu pakai
-
-    # Optional menu dan ikon
-    "icons": {
-        "auth.user": "fas fa-user",
-        "auth.Group": "fas fa-users",
-        "jdih.Dokumen": "fas fa-file-alt",
-    },
-
-    # Format tampilan form (opsional)
-    "changeform_format": "horizontal_tabs",  # single, collapsible, atau horizontal_tabs
-}
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,7 +56,7 @@ ROOT_URLCONF = 'myproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
+        'DIRS': [os.path.join(BASE_DIR / 'templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -143,7 +122,6 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
-
 
 
 # Default primary key field type
