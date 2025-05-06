@@ -1,5 +1,7 @@
+from csv import reader
 from django.db import models
-
+from PyPDF2 import PdfReader
+from django.core.files import File
 # Create your models here.
 
 
@@ -17,12 +19,40 @@ class DokumenHukum(models.Model):
     tanggal_ditetapkan = models.DateField("Tanggal Ditetapkan")
     kategori = models.ForeignKey(
         KategoriDokumen, on_delete=models.SET_NULL, null=True, blank=True)
-    file_pdf = models.FileField("File Dokumen", upload_to='dokumen/')
+    file_pdf = models.FileField("File Dokumen", upload_to='')
     isi_teks = models.TextField(
-        "Isi Teks", blank=True, help_text="Teks hasil ekstrak dari file PDF")
+        "Isi Teks", blank=True, help_text="Teks ekstrak dari PDF")
 
     class Meta:
         ordering = ['-tahun', 'judul']
 
     def __str__(self):
         return f"{self.judul} ({self.nomor})"
+
+    def save(self, *args, **kwargs):
+
+        is_new_pdf = False
+        if self.file_pdf:
+            if not self.pk:
+                is_new_pdf = True
+            else:
+                old_pdf = DokumenHukum.objects.get(pk=self.pk).file_pdf
+                if old_pdf != self.file_pdf:
+                    is_new_pdf = True
+
+        
+        super().save(*args, **kwargs)
+
+        if is_new_pdf:
+            try:
+                reader = PdfReader(self.file_pdf.path)
+                self.isi_teks = "\n".join(
+                    page.extract_text()
+                    for page in reader.pages
+                    if page.extract_text()
+                )
+            except Exception as e:
+                print(f"Error extracting PDF: {e}")
+                self.isi_teks = ""
+
+        super().save(*args, **kwargs)
