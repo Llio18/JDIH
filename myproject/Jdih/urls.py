@@ -11,5 +11,5 @@ urlpatterns = [
 
     path('artikel/', views.artikel_view, name='artikel'),
 
-    path('monografi/', views.monografi_view, name='monografi'),
+    path('dokumen_lain/', views.dokumenLain_view, name='dokumen_lain'),
 ]

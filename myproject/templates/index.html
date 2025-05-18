@@ -21,41 +21,16 @@
 
       <div class="row gy-4 mt-5">
         <h2>Dokumen Hukum Terbaru</h2>
+        {%for dokumen in daftar_dokumen %}
         <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="100">
           <div class="icon-box">
             <div class="icon"><i class="bi bi-book-half"></i></div>
-            <h4 class="title"><a href="">Keputusan Rektor</a></h4>
-            <p class="description">- Artikel Terbaru -</p>
+            <h4 class="title"><a href="#">{{ dokumen.kategori.nama }}</a></h4>
+            <p class="description">- {{dokumen.nomor}} -</p>
+            <p class="description">{{dokumen.judul}}</p>
           </div>
         </div>
-        <!--End Icon Box -->
-
-        <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="200">
-          <div class="icon-box">
-            <div class="icon"><i class="bi bi-book-half"></i></div>
-            <h4 class="title"><a href="">Peraturan</a></h4>
-            <p class="description">- Artikel Terbaru -</p>
-          </div>
-        </div>
-        <!--End Icon Box -->
-
-        <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="300">
-          <div class="icon-box">
-            <div class="icon"><i class="bi bi-book-half"></i></div>
-            <h4 class="title"><a href="">Artikel</a></h4>
-            <p class="description">- Artikel Terbaru -</p>
-          </div>
-        </div>
-        <!--End Icon Box -->
-
-        <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="400">
-          <div class="icon-box">
-            <div class="icon"><i class="bi bi-book-half"></i></div>
-            <h4 class="title"><a href="">Dokumen Hukum Lainnya</a></h4>
-            <p class="description">- Artikel Terbaru -</p>
-          </div>
-        </div>
-        <!--End Icon Box -->
+        {% endfor %}
       </div>
     </div>
   </section>
@@ -150,15 +125,7 @@
     <!-- Google Maps -->
     <div class="container" data-aos="fade-up" data-aos-delay="100">
       <div class="mb-4" data-aos="fade-up" data-aos-delay="200">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7977.687057788332!2d124.883233!3d1.26656!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3287151827c01375%3A0x5543146a99cb0f2d!2sUniversitas%20Negeri%20Manado!5e0!3m2!1sid!2sid!4v1743667343004!5m2!1sid!2sid"
-          width="600"
-          height="450"
-          style="border: 0"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-        ></iframe>
+        <iframe src="" width="600" height="450" style="border: 0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
       <!-- End Google Maps -->
 
@@ -193,29 +160,19 @@
         </div>
 
         <div class="col-lg-8">
-          <form action="Masi mo bekeng dp link" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+          <form action='/' method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+            {% csrf_token %}
             <div class="row gy-4">
-              <div class="col-md-6">
-                <input type="text" name="name" class="form-control" placeholder="Nama" required="" />
-              </div>
+              <div class="col-md-6"> {{f_kontak.nama}}</div>
 
-              <div class="col-md-6">
-                <input type="email" class="form-control" name="email" placeholder="Email" required="" />
-              </div>
+              <div class="col-md-6">{{f_kontak.email}}</div>
 
-              <div class="col-md-12">
-                <input type="text" class="form-control" name="subject" placeholder="Subject" required="" />
-              </div>
-
-              <div class="col-md-12">
-                <textarea class="form-control" name="message" rows="6" placeholder="Pesan" required=""></textarea>
-              </div>
+              <div class="col-md-12">{{f_kontak.pesan}}</div>
 
               <div class="col-md-12 text-center">
                 <div class="loading">Loading</div>
                 <div class="error-message"></div>
                 <div class="sent-message">Your message has been sent. Thank you!</div>
-
                 <button type="submit">Kirim</button>
               </div>
             </div>

@@ -13,62 +13,16 @@
 
   <div class="container_dokumen">
     <div class="container_card">
+      {% for artikel in daftar_artikel%}
       <div class="card">
         <div class="row">
-          <p>no dokumen</p>
-          <p>judul dokumen</p>
-          <p>tahun keluar, berapa banyak yang melihat</p>
+          <p>{{artikel.nomor}}</p>
+          <p>{{artikel.judul}}</p>
+          <p>{{artikel.tahun}}</p>
           <a class="btn-custom" href="#"> Detail</a>
         </div>
       </div>
-      <div class="card">
-        <div class="row">
-          <p>no dokumen</p>
-          <p>judul dokumen</p>
-          <p>tahun keluar, berapa banyak yang melihat</p>
-          <a class="btn-custom" href="#"> Detail</a>
-        </div>
-      </div>
-      <div class="card">
-        <div class="row">
-          <p>no dokumen</p>
-          <p>judul dokumen</p>
-          <p>tahun keluar, berapa banyak yang melihat</p>
-          <a class="btn-custom" href="#"> Detail</a>
-        </div>
-      </div>
-      <div class="card">
-        <div class="row">
-          <p>no dokumen</p>
-          <p>judul dokumen</p>
-          <p>tahun keluar, berapa banyak yang melihat</p>
-          <a class="btn-custom" href="#"> Detail</a>
-        </div>
-      </div>
-      <div class="card">
-        <div class="row">
-          <p>no dokumen</p>
-          <p>judul dokumen</p>
-          <p>tahun keluar, berapa banyak yang melihat</p>
-          <a class="btn-custom" href="#"> Detail</a>
-        </div>
-      </div>
-      <div class="card">
-        <div class="row">
-          <p>no dokumen</p>
-          <p>judul dokumen</p>
-          <p>tahun keluar, berapa banyak yang melihat</p>
-          <a class="btn-custom" href="#"> Detail</a>
-        </div>
-      </div>
-      <div class="card">
-        <div class="row">
-          <p>no dokumen</p>
-          <p>judul dokumen</p>
-          <p>tahun keluar, berapa banyak yang melihat</p>
-          <a class="btn-custom" href="#"> Detail</a>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>

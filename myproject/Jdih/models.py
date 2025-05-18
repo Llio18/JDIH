@@ -56,3 +56,13 @@ class DokumenHukum(models.Model):
                 self.isi_teks = ""
 
         super().save(*args, **kwargs)
+
+
+class Kontak(models.Model):
+    nama = models.CharField(max_length=50)
+    email = models.EmailField(max_length=50)
+    pesan = models.TextField()
+    tanggal = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"pesan dari {self.nama}"
