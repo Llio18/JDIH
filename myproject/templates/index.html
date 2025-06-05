@@ -44,7 +44,7 @@
         <div class="col-lg-3 col-md-6">
           <div class="stats-item text-center w-100 h-100">
             <i class="bi bi-book"></i>
-            <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="1" class="purecounter"></span>
             <p>Keputuran Rektor</p>
           </div>
         </div>
@@ -53,7 +53,7 @@
         <div class="col-lg-3 col-md-6">
           <div class="stats-item text-center w-100 h-100">
             <i class="bi bi-book"></i>
-            <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1" class="purecounter"></span>
             <p>Peraturan</p>
           </div>
         </div>
@@ -62,7 +62,7 @@
         <div class="col-lg-3 col-md-6">
           <div class="stats-item text-center w-100 h-100">
             <i class="bi bi-book"></i>
-            <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="11" data-purecounter-duration="1" class="purecounter"></span>
             <p>Artikel</p>
           </div>
         </div>
@@ -71,8 +71,8 @@
         <div class="col-lg-3 col-md-6">
           <div class="stats-item text-center w-100 h-100">
             <i class="bi bi-book"></i>
-            <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Monografi</p>
+            <span data-purecounter-start="0" data-purecounter-end="21" data-purecounter-duration="1" class="purecounter"></span>
+            <p>Dokumen Lainnya</p>
           </div>
         </div>
         <!-- End Stats Item -->
@@ -125,7 +125,15 @@
     <!-- Google Maps -->
     <div class="container" data-aos="fade-up" data-aos-delay="100">
       <div class="mb-4" data-aos="fade-up" data-aos-delay="200">
-        <iframe src="" width="600" height="450" style="border: 0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.843528894166!2d124.883233!3d1.2665600000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3287151827c01375%3A0x5543146a99cb0f2d!2sUniversitas%20Negeri%20Manado!5e0!3m2!1sid!2sid!4v1747802925008!5m2!1sid!2sid"
+          width="600"
+          height="450"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
       </div>
       <!-- End Google Maps -->
 
@@ -160,10 +168,10 @@
         </div>
 
         <div class="col-lg-8">
-          <form action='/' method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+          <form action="/" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
             {% csrf_token %}
             <div class="row gy-4">
-              <div class="col-md-6"> {{f_kontak.nama}}</div>
+              <div class="col-md-6">{{f_kontak.nama}}</div>
 
               <div class="col-md-6">{{f_kontak.email}}</div>
 
@@ -173,8 +181,8 @@
                 <div class="loading">Loading</div>
                 <div class="error-message"></div>
                 <div class="sent-message">Your message has been sent. Thank you!</div>
-                <button type="submit">Kirim</button>
               </div>
+              <button type="submit">Kirim</button>
             </div>
           </form>
         </div>

@@ -1,4 +1,7 @@
 
+from django.utils.translation import gettext_lazy as _
+from django.urls import reverse_lazy
+from django.templatetags.static import static
 import os
 from pathlib import Path
 from decouple import config
@@ -32,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Jdih',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -123,3 +127,87 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+UNFOLD = {
+    "SITE_TITLE": "JDIH Administration",
+    "SITE_HEADER": "JDIH",
+    "SITE_SUBHEADER": "UNIMA",
+    "SITE_DROPDOWN": [
+        {
+            "icon": "diamond",
+            "title": _("JDIH Site"),
+            "link": "/",
+        },
+        # ...
+    ],
+    
+    "SITE_URL": "/",
+    "SITE_SYMBOL": "speed",
+    
+    "SIDEBAR": {
+        "show_search": True,  # Search in applications and models names
+        "show_all_applications": True,  # Dropdown with all applications and models
+        "navigation": [
+            {
+                "title": _("Main"),
+                "separator": True,  # Top border
+                "collapsible": False,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Dashboard"),
+                        "icon": "dashboard",  
+                        "link": reverse_lazy("admin:index"),
+                        "badge": "main",
+                        "permission": lambda request: request.user.is_superuser,    
+                    },
+                ],
+            },
+            {
+                "title": _("Dokumen"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Dokumen Hukum"),
+                        "icon": "file",
+                        "icon": "Description",
+                        "link": reverse_lazy("admin:Jdih_dokumenhukum_changelist"),
+                    },
+                    {
+                        "title": _("Kategori Dokumen"),
+                        "icon": "file",
+                        "icon": "Category",
+                        "link": reverse_lazy("admin:Jdih_kategoridokumen_changelist"),
+                    },
+                    {
+                        "title": _("Kontak"),
+                        "icon": "Person_Book",
+                        "link": reverse_lazy("admin:Jdih_kontak_changelist"),
+                    },
+                ],
+            },
+            {
+                "title": _("User & Group"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Users"),
+                        "icon": "Person", 
+                        "link": reverse_lazy("admin:auth_user_changelist"),
+                        "permission": lambda request: request.user.is_superuser,    
+                    },
+                    {
+                        "title": _("Group"),
+                        "icon": "Persons",
+                        "icon": "Description",
+                        "link": reverse_lazy("admin:auth_group_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                ],
+            },
+        ],
+    },
+    
+}

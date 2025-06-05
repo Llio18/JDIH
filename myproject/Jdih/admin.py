@@ -1,7 +1,7 @@
 from atexit import register
 from django.contrib import admin
 from unfold.admin import ModelAdmin
-from .models import KategoriDokumen, DokumenHukum, Kontak
+from .models import  DokumenHukum, KategoriDokumen, Kontak
 
 
 @admin.register(DokumenHukum)

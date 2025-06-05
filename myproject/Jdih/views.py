@@ -9,7 +9,7 @@ from .models import DokumenHukum
 
 def index(request):
 
-    daftar_dokumen = DokumenHukum.objects.all()[:8]
+    daftar_dokumen = DokumenHukum.objects.all()[:12]
 
     if request.method == 'POST':
         f_kontak = FormKontak(request.POST or None)
@@ -31,15 +31,15 @@ def index(request):
 
 # View untuk menampilkan halaman Keputusan Pimpinan
 def keputusan_view(request):
-    daftar_artikel = DokumenHukum.objects.filter(kategori__nama='Keputusan Pimpinan')
-    return render(request, 'JDIH/artikel.html', {'daftar_artikel': daftar_artikel})
+    daftar_dokumen = DokumenHukum.objects.filter(kategori__nama='Keputusan Pimpinan')
+    return render(request, 'JDIH/keputusan.html', {'daftar_dokumen': daftar_dokumen})
 
 # View untuk menampilkan halaman Peraturan
 
 
 def peraturan_view(request):
     daftar_artikel = DokumenHukum.objects.filter(kategori__nama='Peraturan')
-    return render(request, 'JDIH/artikel.html', {'daftar_artikel': daftar_artikel})
+    return render(request, 'JDIH/peraturan.html', {'daftar_artikel': daftar_artikel})
 
 # View untuk menampilkan halaman Artikel Hukum
 
