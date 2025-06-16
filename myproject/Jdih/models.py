@@ -1,5 +1,7 @@
 from csv import reader
+from enum import unique
 from django.db import models
+from django.utils.text import slugify
 from PyPDF2 import PdfReader
 from django.core.files import File
 # Create your models here.
@@ -7,6 +9,11 @@ from django.core.files import File
 
 class KategoriDokumen(models.Model):
     nama = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=100, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.nama)
+        return super(KategoriDokumen, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.nama
@@ -40,7 +47,6 @@ class DokumenHukum(models.Model):
                 if old_pdf != self.file_pdf:
                     is_new_pdf = True
 
-        
         super().save(*args, **kwargs)
 
         if is_new_pdf:

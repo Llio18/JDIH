@@ -13,11 +13,30 @@
         </div>
       </div>
       <div class="cont-search">
-        <div class="search">
-          <input type="search" autofocus placeholder="Masukan Kata Kunci" />
-          <a href="#" class="btn-get-started"><i class="bi bi-search"></i>cari</a>
-        </div>
+        <form class="search" method="get" action="{% url 'index' %}">
+          <input name="cari" type="search" autofocus placeholder="Masukan Kata Kunci" />
+          <button type="submit" class="btn-get-started"><i class="bi bi-search"></i>cari</button>
+        </form>
       </div>
+
+      {%if query %}
+      <div class="row gy-4 mt-5">
+        {% if daftar_dokumen%}
+        <h2>Hasil Pencarian untuk {{query}}</h2>
+        {%for dokumen in daftar_dokumen %}
+        <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="100">
+          <div class="icon-box">
+            <div class="icon"><i class="bi bi-book-half"></i></div>
+            <h4 class="title"><a href="#">{{ dokumen.kategori.nama }}</a></h4>
+            <p class="description truncate w-64">- {{dokumen.nomor}} -</p>
+            <p class="description truncate w-65">{{dokumen.judul}}</p>
+          </div>
+        </div>
+        {% endfor %} {% else %}
+        <h2>Data Tidak ditemukan {{query}}</h2>
+        {% endif %}
+      </div>
+      {% else %}
 
       <div class="row gy-4 mt-5">
         <h2>Dokumen Hukum Terbaru</h2>
@@ -26,55 +45,35 @@
           <div class="icon-box">
             <div class="icon"><i class="bi bi-book-half"></i></div>
             <h4 class="title"><a href="#">{{ dokumen.kategori.nama }}</a></h4>
-            <p class="description">- {{dokumen.nomor}} -</p>
-            <p class="description">{{dokumen.judul}}</p>
+            <p class="description truncate w-64">- {{dokumen.nomor}} -</p>
+            <p class="description truncate w-65">{{dokumen.judul}}</p>
           </div>
         </div>
         {% endfor %}
       </div>
+      {% endif %}
     </div>
   </section>
   <!-- /Hero Section -->
 
   <!-- Stats Section -->
   <section id="stats" class="stats section light-background">
-    <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div>
       <h2>Dokumen Hukum</h2>
+    </div>
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
       <div class="row gy-4">
+        {% for kategori in hitung_kategori %}
         <div class="col-lg-3 col-md-6">
           <div class="stats-item text-center w-100 h-100">
-            <i class="bi bi-book"></i>
-            <span data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Keputuran Rektor</p>
+            <a href="{% url 'kategori_view' kategori.slug %}">
+              <i class="bi bi-book"></i>
+              <span data-purecounter-start="0" data-purecounter-end="{{kategori.jumlah_dokumen}}" data-purecounter-duration="1" class="purecounter"></span>
+              <p>{{kategori.nama}}</p>
+            </a>
           </div>
         </div>
-        <!-- End Stats Item -->
-
-        <div class="col-lg-3 col-md-6">
-          <div class="stats-item text-center w-100 h-100">
-            <i class="bi bi-book"></i>
-            <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Peraturan</p>
-          </div>
-        </div>
-        <!-- End Stats Item -->
-
-        <div class="col-lg-3 col-md-6">
-          <div class="stats-item text-center w-100 h-100">
-            <i class="bi bi-book"></i>
-            <span data-purecounter-start="0" data-purecounter-end="11" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Artikel</p>
-          </div>
-        </div>
-        <!-- End Stats Item -->
-
-        <div class="col-lg-3 col-md-6">
-          <div class="stats-item text-center w-100 h-100">
-            <i class="bi bi-book"></i>
-            <span data-purecounter-start="0" data-purecounter-end="21" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Dokumen Lainnya</p>
-          </div>
-        </div>
+        {% endfor %}
         <!-- End Stats Item -->
       </div>
     </div>

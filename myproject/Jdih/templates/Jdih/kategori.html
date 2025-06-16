@@ -1,9 +1,9 @@
 {% extends "base.html" %} {% block content %} {% load static %}
 
-<link href="{% static 'css/doc.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'css/doc.css' %}" />
 
 <section class="section_dokumen">
-  <h2>Keputusan Rektor</h2>
+  <h2>{{kategori}}</h2>
   <div class="container_search">
     <div class="search">
       <input type="search" autofocus placeholder="Masukan Kata Kunci" />

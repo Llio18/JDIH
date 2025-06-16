@@ -936,7 +936,19 @@ section,
 .hero .icon-box .description {
   font-size: 15px;
   margin-bottom: 0;
+  max-height: 90px;
   color: color-mix(in srgb, var(--default-color), transparent 40%);
+}
+
+.hero .icon-box .description.truncate.w-65 {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  overflow-y: auto;
+  overflow-x: hidden;
+  white-space: pre-wrap;
+  width: 200px;
+  -ms-overflow-style: none; /* IE dan Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .hero .icon-box .icon,
@@ -1016,6 +1028,11 @@ section,
 --------------------------------------------------------------*/
 .stats {
   padding: 30px 0;
+}
+
+.stats .row {
+  display: flex;
+  justify-content: center;
 }
 
 .stats .stats-item {
@@ -1210,11 +1227,12 @@ section,
   padding: 0.5rem;
 }
 
-.main .hero.section .cont-search .search a {
+.main .hero.section .cont-search .search button {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 4rem;
+  border: none;
 }
 
 .main .hero.section .cont-search .search i {
