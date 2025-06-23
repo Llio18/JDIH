@@ -6,11 +6,15 @@
   <h2>{{kategori}}</h2>
   <div class="container_search">
     <div class="search">
-      <input type="search" autofocus placeholder="Masukan Kata Kunci" />
-      <a href="#" class="btn-get-started"><i class="bi bi-search"></i>cari</a>
+      <form method="get" action="{% url 'kategori_view' kategori.slug %}">
+        <input name="cari" type="search" autofocus placeholder="Masukan Kata Kunci" value="{{request.GET.cari}}" />
+        <button type="submit" class="btn-get-started"><i class="bi bi-search"></i>cari</button>
+      </form>
     </div>
   </div>
 
+  {%if query%} {%if daftar_dokumen%}
+  
   <div class="container_dokumen">
     <div class="container_card">
       {% for dokumen in daftar_dokumen%}
@@ -18,13 +22,32 @@
         <div class="row">
           <p>{{dokumen.nomor}}</p>
           <p>{{dokumen.judul}}</p>
-          <p>{{dokumen.tahun}}</p>
-          <a class="btn-custom" href="#"> Detail</a>
+          <p>Tahun {{dokumen.tahun}}</p>
+          <a class="btn-custom" href="{% url 'detail_view' dokumen.slug %}"> Detail</a>
         </div>
       </div>
       {% endfor %}
     </div>
   </div>
+    {% else %}
+    <h2>Data {{query}} Tidak ditemukan</h2>
+  </div>
+  {% endif %} {% else %}
+  <div class="container_dokumen">
+    <div class="container_card">
+      {% for dokumen in daftar_dokumen%}
+      <div class="card">
+        <div class="row">
+          <p>{{dokumen.nomor}}</p>
+          <p>{{dokumen.judul}}</p>
+          <p>Tahun {{dokumen.tahun}}</p>
+          <a class="btn-custom" href="{% url 'detail_view' dokumen.slug %}"> Detail</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
 </section>
 
 {% endblock content %}

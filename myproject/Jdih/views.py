@@ -17,13 +17,10 @@ def index(request):
         jumlah_dokumen=Count('dokumenhukum')
     ).order_by('nama')
 
-    # daftar_dokumen = DokumenHukum.objects.all()[:12]
-
     if query:
         daftar_dokumen = DokumenHukum.objects.filter(
             Q(judul__icontains=query) |
             Q(nomor__icontains=query) |
-            Q(isi_teks__icontains=query) |
             Q(kategori__nama__icontains=query)
         ).order_by('-tahun')
     else:
@@ -52,16 +49,56 @@ def index(request):
 # View Untuk halama kategori agar dinamis
 
 def kategori_view(request, imput):
+
+    # Mengambil query dari parameter GET
+    query = request.GET.get('cari')
+
+    # Mengambil kategori berdasarkan slug yang diberikan
     kategori = get_object_or_404(KategoriDokumen, slug=imput)
+
+    # Mengambil semua dokumen hukum yang sesuai dengan kategori
     daftar_dokumen = DokumenHukum.objects.filter(kategori=kategori)
+
+    # Jika ada query pencarian, filter daftar dokumen berdasarkan query
+    if query:
+        daftar_dokumen = daftar_dokumen.filter(
+            Q(judul__icontains=query) |
+            Q(nomor__icontains=query) |
+            Q(kategori__nama__icontains=query)
+        ).order_by('-tahun')
 
     context = {
         'kategori': kategori,
         'daftar_dokumen': daftar_dokumen,
         'kategori_aktif': imput,
+        'query': query,
     }
 
     return render(request, 'JDIH/kategori.html', context)
+
+
+def detail_view(request, imput):
+    dokumen = DokumenHukum.objects.get(slug=imput)
+
+    context = {
+        'dokumen': dokumen,
+    }
+
+    return render(request, 'JDIH/detail_view.html', context)
+
+
+def testing(request):
+
+    
+
+    context = {
+        'testing': 'hallo ini halaman testing'
+    }
+    return render(request, 'JDIH/testing.html', context)
+
+
+def binary_search(arr, target):
+    pass
 
 # View untuk menampilkan halaman Keputusan Pimpinan
 

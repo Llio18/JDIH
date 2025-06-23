@@ -18,10 +18,9 @@
         <h4>links</h4>
         <ul>
           <li><a href="#">Home</a></li>
-          <li><a href="#">Keputusan Rektor</a></li>
-          <li><a href="#">Peraturan</a></li>
-          <li><a href="#">Dokumen lainnya</a></li>
-          <li><a href="#">Artikel</a></li>
+          {%for kategori in daftar_kategori%}
+          <li><a href="{% url 'kategori_view' kategori.slug %}">{{kategori.nama}}</a></li>
+          {% endfor %}
         </ul>
       </div>
 

@@ -20,7 +20,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -44,7 +44,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'myproject.urls'
@@ -144,10 +144,10 @@ UNFOLD = {
         },
         # ...
     ],
-    
+
     "SITE_URL": "/",
     "SITE_SYMBOL": "speed",
-    
+
     "SIDEBAR": {
         "show_search": True,  # Search in applications and models names
         "show_all_applications": True,  # Dropdown with all applications and models
@@ -159,10 +159,10 @@ UNFOLD = {
                 "items": [
                     {
                         "title": _("Dashboard"),
-                        "icon": "dashboard",  
+                        "icon": "dashboard",
                         "link": reverse_lazy("admin:index"),
                         "badge": "main",
-                        "permission": lambda request: request.user.is_superuser,    
+                        "permission": lambda request: request.user.is_superuser,
                     },
                 ],
             },
@@ -197,9 +197,9 @@ UNFOLD = {
                 "items": [
                     {
                         "title": _("Users"),
-                        "icon": "Person", 
+                        "icon": "Person",
                         "link": reverse_lazy("admin:auth_user_changelist"),
-                        "permission": lambda request: request.user.is_superuser,    
+                        "permission": lambda request: request.user.is_superuser,
                     },
                     {
                         "title": _("Group"),
@@ -212,5 +212,5 @@ UNFOLD = {
             },
         ],
     },
-    
+
 }

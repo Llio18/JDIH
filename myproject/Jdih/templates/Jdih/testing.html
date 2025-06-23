@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>testing</title>
+  </head>
+  <body>
+    <h1>{{testing}} hallo</h1>
+    <form method="get" action="{% url 'testing'%}">
+      <input name="cari" type="search" autofocus placeholder="Masukan Kata Kunci" value="{{ request.GET.cari}}" />
+      <button type="submit" name="search_type" value="cari" class="btn-get-started"><i class="bi bi-search"></i>cari</button>
+      <button type="submit" name="search_type" value="binary" class="btn-get-started"><i class="bi bi-search"></i>binary</button>
+    </form>
+  </body>
+</html>

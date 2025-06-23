@@ -11,10 +11,6 @@ class KategoriDokumen(models.Model):
     nama = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, blank=True)
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.nama)
-        return super(KategoriDokumen, self).save(*args, **kwargs)
-
     def __str__(self):
         return self.nama
 
@@ -29,6 +25,7 @@ class DokumenHukum(models.Model):
     file_pdf = models.FileField("File Dokumen", upload_to='')
     isi_teks = models.TextField(
         "Isi Teks", blank=True, help_text="Teks ekstrak dari PDF")
+    slug = models.SlugField(max_length=100, blank=True, unique=True)
 
     class Meta:
         ordering = ['-tahun', 'judul']
@@ -38,6 +35,17 @@ class DokumenHukum(models.Model):
 
     def save(self, *args, **kwargs):
 
+        # Buat slug jika belum ada
+        if not self.slug:
+            base_slug = slugify(self.judul)[:200]
+            unique_slug = base_slug
+            counter = 1
+            while DokumenHukum.objects.filter(slug=unique_slug).exclude(pk=self.pk).exists():
+                unique_slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = unique_slug
+
+        # Cek apakah file PDF baru
         is_new_pdf = False
         if self.file_pdf:
             if not self.pk:
@@ -49,6 +57,7 @@ class DokumenHukum(models.Model):
 
         super().save(*args, **kwargs)
 
+        # Ekstrak teks dari PDF jika file baru
         if is_new_pdf:
             try:
                 reader = PdfReader(self.file_pdf.path)

@@ -13,7 +13,7 @@
         </li>
         <li><a href="#about">Tentang JDIH</a></li>
         <li class="dropdown">
-          <a href="#"><span>Dokumen Hukum</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <a href="/"><span>Dokumen Hukum</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
           <ul>
             {%for kategori in daftar_kategori%} {%if kategori.slug != kategori_aktif%}
             <li><a href="{% url 'kategori_view' kategori.slug %}">{{kategori.nama}}</a></li>

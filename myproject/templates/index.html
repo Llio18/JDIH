@@ -9,46 +9,51 @@
     <div class="container">
       <div class="row justify-content-center" data-aos="zoom-out">
         <div class="col-xl-12 col-lg-9 text-center">
-          <h1>Jaringan Dokumentasi dan Informasi Hukum <span>Universitas Negeri Manado</span></h1>
+          <h1>Jaringan Dokumentasi dan Informasi Hukum</h1>
+          <h1><span>Universitas Negeri Manado</span></h1>
         </div>
       </div>
       <div class="cont-search">
         <form class="search" method="get" action="{% url 'index' %}">
-          <input name="cari" type="search" autofocus placeholder="Masukan Kata Kunci" />
-          <button type="submit" class="btn-get-started"><i class="bi bi-search"></i>cari</button>
+          <input name="cari" type="search" autofocus placeholder="Masukan Kata Kunci" value="{{ request.GET.cari}}" />
+          <button type="submit" name="search_type" value="cari" class="btn-get-started"><i class="bi bi-search"></i></button>
+          <button type="submit" name="search_type" value="binary" class="btn-get-started"><i class="bi bi-search"></i></button>
         </form>
       </div>
 
-      {%if query %}
-      <div class="row gy-4 mt-5">
-        {% if daftar_dokumen%}
+      {%if query %} {% if daftar_dokumen%}
+      <div class="row justify-content-center gy-4 mt-5">
         <h2>Hasil Pencarian untuk {{query}}</h2>
         {%for dokumen in daftar_dokumen %}
         <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="100">
           <div class="icon-box">
-            <div class="icon"><i class="bi bi-book-half"></i></div>
-            <h4 class="title"><a href="#">{{ dokumen.kategori.nama }}</a></h4>
+            <a href="{% url 'detail_view' dokumen.slug %}">
+              <div class="icon"><i class="bi bi-book-half"></i></div>
+              <h4 class="title"><a href="#">{{ dokumen.kategori.nama }}</a></h4>
+            </a>
             <p class="description truncate w-64">- {{dokumen.nomor}} -</p>
             <p class="description truncate w-65">{{dokumen.judul}}</p>
           </div>
         </div>
         {% endfor %} {% else %}
-        <h2>Data Tidak ditemukan {{query}}</h2>
-        {% endif %}
+        <h2 style="padding-top: 3rem">Data {{query}} Tidak ditemukan</h2>
       </div>
-      {% else %}
+      {% endif %} {% else %}
 
-      <div class="row gy-4 mt-5">
+      <div class="row justify-content-center gy-4 mt-5">
         <h2>Dokumen Hukum Terbaru</h2>
         {%for dokumen in daftar_dokumen %}
         <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="100">
           <div class="icon-box">
-            <div class="icon"><i class="bi bi-book-half"></i></div>
-            <h4 class="title"><a href="#">{{ dokumen.kategori.nama }}</a></h4>
+            <a href="{% url 'detail_view' dokumen.slug%}">
+              <div class="icon"><i class="bi bi-book-half"></i></div>
+              <h4 class="title">{{ dokumen.kategori.nama }}</h4>
+            </a>
             <p class="description truncate w-64">- {{dokumen.nomor}} -</p>
             <p class="description truncate w-65">{{dokumen.judul}}</p>
           </div>
         </div>
+
         {% endfor %}
       </div>
       {% endif %}

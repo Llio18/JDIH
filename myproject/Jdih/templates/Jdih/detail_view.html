@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block content %}{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/detail_doc.css' %}" />
+
+<div class="container">
+  <div class="preview_dok">
+    <iframe src="{{ dokumen.file_pdf.url }}#toolbar=0$view=fitH"> Browser kamu tidak mendukung PDF Preview {{dokumen.file_pdf.url}} </iframe>
+  </div>
+  <div class="isi_dok">
+    <h1>{{dokumen.judul}}</h1>
+    <h2>Nomor : {{dokumen.nomor}}</h2>
+    <h2>Tahun : {{dokumen.tahun}}</h2>
+    <h2>Tanggal di Tetapkan : {{dokumen.tanggal_ditetapkan}}</h2>
+    <h2>Kategori Dokumen : {{dokumen.kategori.nama}}</h2>
+  </div>
+</div>
+{% endblock content %}
