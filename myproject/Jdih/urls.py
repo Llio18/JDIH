@@ -7,5 +7,7 @@ urlpatterns = [
 
     path('kategori/<slug:imput>/', views.kategori_view, name='kategori_view'),
     path('detail/<slug:imput>/', views.detail_view, name='detail_view'),
-    path('test/', views.testing, name='testing'),
+    path('dokumen', views.dokumen, name='semua_dokumen')
 ]
+
+    # path('test/', views.testing, name='testing'),

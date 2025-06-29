@@ -9,22 +9,30 @@ from django.db.models import Q
 # Create your views here.
 
 
+# View untuk halaman index
 def index(request):
 
     query = request.GET.get('cari')
+    search_type = request.GET.get('search_type', 'regular')
 
     hitung_kategori = KategoriDokumen.objects.annotate(
         jumlah_dokumen=Count('dokumenhukum')
     ).order_by('nama')
 
     if query:
-        daftar_dokumen = DokumenHukum.objects.filter(
-            Q(judul__icontains=query) |
-            Q(nomor__icontains=query) |
-            Q(kategori__nama__icontains=query)
-        ).order_by('-tahun')
+        if search_type == 'binary':
+            hasil_pencarian = DokumenHukum.cari_binary_search(query)
+            is_binary = True
+        else:
+            hasil_pencarian = DokumenHukum.objects.filter(
+                Q(judul__icontains=query) |
+                Q(nomor__icontains=query) |
+                Q(kategori__nama__icontains=query)
+            ).order_by('-tahun')
+            is_binary = False
     else:
-        daftar_dokumen = DokumenHukum.objects.all()[:12]
+        hasil_pencarian = DokumenHukum.objects.all()[:12]
+        is_binary = False
 
     if request.method == 'POST':
         f_kontak = FormKontak(request.POST or None)
@@ -39,15 +47,15 @@ def index(request):
     context = {
         'hitung_kategori': hitung_kategori,
         'f_kontak': f_kontak,
-        'daftar_dokumen': daftar_dokumen,
+        'hasil_pencarian': hasil_pencarian,
         'query': query,
+        'is_binary': is_binary,
     }
 
     return render(request, 'index.html', context)
 
 
 # View Untuk halama kategori agar dinamis
-
 def kategori_view(request, imput):
 
     # Mengambil query dari parameter GET
@@ -77,6 +85,7 @@ def kategori_view(request, imput):
     return render(request, 'JDIH/kategori.html', context)
 
 
+# view untuk halaman detail
 def detail_view(request, imput):
     dokumen = DokumenHukum.objects.get(slug=imput)
 
@@ -87,54 +96,7 @@ def detail_view(request, imput):
     return render(request, 'JDIH/detail_view.html', context)
 
 
-def testing(request):
 
-    
-
-    context = {
-        'testing': 'hallo ini halaman testing'
-    }
-    return render(request, 'JDIH/testing.html', context)
-
-
-def binary_search(arr, target):
-    pass
-
-# View untuk menampilkan halaman Keputusan Pimpinan
-
-# def keputusan_view(request):
-#     daftar_dokumen = DokumenHukum.objects.filter(
-#         kategori__nama='Keputusan Rektor')
-#     context = {
-#         'keputusan_pimpinan': daftar_dokumen,
-#     }
-#     return render(request, 'JDIH/keputusan.html', context)
-
-# # View untuk menampilkan halaman Peraturan
-
-
-# def peraturan_view(request):
-#     daftar_peraturan = DokumenHukum.objects.filter(kategori__nama='Peraturan')
-#     context = {
-#         'daftar_peraturan': daftar_peraturan,
-#     }
-#     return render(request, 'JDIH/peraturan.html', context)
-
-# # View untuk menampilkan halaman Artikel Hukum
-
-
-# def artikel_view(request):
-
-#     daftar_artikel = DokumenHukum.objects.filter(
-#         kategori__nama='Artikel')
-#     context = {
-#         'daftar_artikel': daftar_artikel,
-#     }
-#     return render(request, 'JDIH/artikel.html', context)
-
-# # View untuk menampilkan halaman Monografi Hukum
-
-
-# def dokumenLain_view(request):
-#     daftar_artikel = DokumenHukum.objects.filter(kategori__nama='Dokumen Lain')
-#     return render(request, 'JDIH/dokumen_lain.html', {'daftar_artikel': daftar_artikel})
+#view untuk halaman seluruh dokumen
+def dokumen(request):
+    return render(request, 'JDIH/dokumen.html')

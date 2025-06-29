@@ -16,44 +16,61 @@
       <div class="cont-search">
         <form class="search" method="get" action="{% url 'index' %}">
           <input name="cari" type="search" autofocus placeholder="Masukan Kata Kunci" value="{{ request.GET.cari}}" />
-          <button type="submit" name="search_type" value="cari" class="btn-get-started"><i class="bi bi-search"></i></button>
-          <button type="submit" name="search_type" value="binary" class="btn-get-started"><i class="bi bi-search"></i></button>
+          <button type="submit" name="search_type" value="regular" class="btn-get-started"><i class="bi bi-search"></i></button>
+          <button type="submit" name="search_type" value="binary" class="btn-get-started"><i class="bi bi-search"> dengan binary</i></button>
         </form>
       </div>
 
-      {%if query %} {% if daftar_dokumen%}
+      {% if query %}
       <div class="row justify-content-center gy-4 mt-5">
-        <h2>Hasil Pencarian untuk {{query}}</h2>
-        {%for dokumen in daftar_dokumen %}
+        <h2>Hasil pencarian untuk kata {{query}}</h2>
+        {% if is_binary %} {%for item in hasil_pencarian %}
         <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="100">
           <div class="icon-box">
-            <a href="{% url 'detail_view' dokumen.slug %}">
+            <a href="{% url 'detail_view' item.slug%}">
               <div class="icon"><i class="bi bi-book-half"></i></div>
-              <h4 class="title"><a href="#">{{ dokumen.kategori.nama }}</a></h4>
+              <h4 class="title truncate w-65">{{ item.kategori }}</h4>
             </a>
-            <p class="description truncate w-64">- {{dokumen.nomor}} -</p>
-            <p class="description truncate w-65">{{dokumen.judul}}</p>
+            <p class="description">- {{item.dokumen.nomor}} -</p>
+            <p class="description truncate w-65">{{item.dokumen.judul|lower|capfirst}}</p>
+            <p class="description">{{query}} muncul {{item.frekuensi}} kali</p>
           </div>
         </div>
-        {% endfor %} {% else %}
-        <h2 style="padding-top: 3rem">Data {{query}} Tidak ditemukan</h2>
-      </div>
-      {% endif %} {% else %}
-
-      <div class="row justify-content-center gy-4 mt-5">
-        <h2>Dokumen Hukum Terbaru</h2>
-        {%for dokumen in daftar_dokumen %}
+        {% empty %}
+        <div class="col-12 text-center">
+          <div class="alert alert-warning">"{{query}}" Tidak ditemukan</div>
+        </div>
+        {% endfor %} {% else %} {%for dokumen in hasil_pencarian %}
         <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="100">
           <div class="icon-box">
             <a href="{% url 'detail_view' dokumen.slug%}">
               <div class="icon"><i class="bi bi-book-half"></i></div>
-              <h4 class="title">{{ dokumen.kategori.nama }}</h4>
+              <h4 class="title">{{ dokumen.kategori }}</h4>
             </a>
-            <p class="description truncate w-64">- {{dokumen.nomor}} -</p>
-            <p class="description truncate w-65">{{dokumen.judul}}</p>
+            <p class="description">- {{dokumen.nomor}} -</p>
+            <p class="description truncate w-65">{{dokumen.judul|lower|capfirst}}</p>
           </div>
         </div>
-
+        {% empty %}
+        <div class="col-12 text-center">
+          <div class="alert alert-warning">"{{query}}" Tidak ditemukan</div>
+        </div>
+        {% endfor %} {% endif %}
+      </div>
+      {% else %}
+      <div class="row justify-content-center gy-4 mt-5">
+        <h2>Dokumen Hukum Terbaru</h2>
+        {%for dokumen in hasil_pencarian %}
+        <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="100">
+          <div class="icon-box">
+            <a href="{% url 'detail_view' dokumen.slug%}">
+              <div class="icon"><i class="bi bi-book-half"></i></div>
+              <h4 class="title">{{ dokumen.kategori }}</h4>
+            </a>
+            <p class="description">- {{dokumen.nomor}} -</p>
+            <p class="description truncate w-65 capitalize-text">{{dokumen.judul|lower|capfirst}}</p>
+          </div>
+        </div>
         {% endfor %}
       </div>
       {% endif %}

@@ -918,6 +918,7 @@ section,
   transition: all 0.3s ease-in-out;
   border-radius: 8px;
   z-index: 1;
+  text-transform: capitalize;
   height: 100%;
   width: 100%;
 }
@@ -926,11 +927,6 @@ section,
   font-weight: 700;
   margin-bottom: 15px;
   font-size: 18px;
-}
-
-.hero .icon-box .title a {
-  color: var(--heading-color);
-  transition: 0.3s;
 }
 
 .hero .icon-box .description {
@@ -947,8 +943,8 @@ section,
   overflow-x: hidden;
   white-space: pre-wrap;
   width: 200px;
-  -ms-overflow-style: none; /* IE dan Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .hero .icon-box .icon,
@@ -961,16 +957,6 @@ section,
   line-height: 1;
   color: var(--accent-color);
   justify-content: center;
-}
-
-@media (min-width: 640px) {
-  .hero .icon-box:hover {
-    transform: scale(1.08);
-  }
-
-  .hero .icon-box:hover .title a {
-    color: var(--accent-color);
-  }
 }
 
 /*--------------------------------------------------------------
@@ -1199,23 +1185,28 @@ section,
   justify-content: center;
   align-items: center;
   padding-top: 5rem;
+  /* background-color: red; */
 }
 
 .main .hero.section .cont-search .search {
   /* background-color: green; */
   display: flex;
-  width: 50%;
-  justify-content: space-around;
   align-items: center;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 65%;
+  justify-content: center;
+  padding: 0.3rem;
+  gap: 1rem;
+  /* background-color: rebeccapurple; */
 }
 
 .main .hero.section .cont-search .search input {
-  width: 80%;
-  height: 3rem;
   text-align: center;
+  border-radius: 5px;
   border: none;
+  flex: 1;
+  font-weight: 700;
 }
 
 .main .hero.section .cont-search .search input:focus {
@@ -1228,10 +1219,6 @@ section,
 }
 
 .main .hero.section .cont-search .search button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 4rem;
   border: none;
 }
 
@@ -1242,4 +1229,25 @@ section,
 /* Contact */
 .main .contact.section .container .mb-4 iframe {
   width: 100%;
+}
+
+@media (min-width: 640px) {
+  .hero .icon-box:hover {
+    transform: scale(1.08);
+  }
+
+  .hero .icon-box:hover .title a {
+    color: var(--accent-color);
+  }
+}
+
+@media (min-width: 480px) and (max-width: 639px) {
+  .main .hero.section .cont-search .search {
+    width: 80%;
+    font-size: 14px;
+  }
+
+  .main .hero.section .cont-search .search button {
+  font-size: 14px;
+}
 }
