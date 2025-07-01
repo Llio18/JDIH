@@ -42,13 +42,25 @@ class DokumenHukum(models.Model):
     nomor = models.CharField("Nomor Dokumen", max_length=100)
     judul = models.TextField("Judul")
     tahun = models.PositiveIntegerField("Tahun Terbit")
-    tanggal_ditetapkan = models.DateField("Tanggal Ditetapkan")
+    tanggal_ditetapkan = models.DateField(
+        "Tanggal Ditetapkan",
+        null=True,
+        blank=True,
+    )
     kategori = models.ForeignKey(
-        KategoriDokumen, on_delete=models.SET_NULL, null=True, blank=True)
-    file_pdf = models.FileField("File Dokumen", upload_to='dokumen_hukum/')
+        KategoriDokumen,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    file_pdf = models.FileField(
+        "File Dokumen",
+        upload_to='dokumen_hukum/',
+        max_length=225,
+    )
     isi_teks = models.TextField(
         "Isi Teks", blank=True, help_text="Teks ekstrak dari PDF")
-    slug = models.SlugField(max_length=100, blank=True, unique=True)
+    slug = models.SlugField(max_length=225, blank=True, unique=True)
 
     class Meta:
         ordering = ['-tahun', 'judul']
@@ -57,9 +69,22 @@ class DokumenHukum(models.Model):
         return f"{self.judul} ({self.nomor})"
 
     def save(self, *args, **kwargs):
-        # 1. Hasilkan slug
-        if not self.slug:
-            self.slug = slugify(self.judul)
+
+        if not self.slug or self.judul != getattr(DokumenHukum.objects.filter(pk=self.pk).first(), 'judul', None):
+
+            base_slug = slugify(self.judul)
+
+            max_len = self._meta.get_field('slug').max_length
+
+            slug = base_slug[:max_len]
+
+            n = 0
+            while DokumenHukum.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                n += 1
+                sisa_ruang = max_len - len(str(n)) - 1
+                slug = f"{base_slug[:sisa_ruang]}-{n}"
+
+            self.slug = slug
 
         # 2. Ekstrak teks dari file PDF jika ada
         if self.file_pdf:
