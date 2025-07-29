@@ -27,7 +27,7 @@ class KategoriDokumen(models.Model):
                 pass  # Objek tidak ditemukan
 
         if self.nama != old_name or not self.slug:
-            base_slug = slugify(self.nama)
+            base_slug = slugify(self.nama) 
             slug = base_slug
             n = 0
             while KategoriDokumen.objects.filter(slug=slug).exclude(pk=self.pk).exists():

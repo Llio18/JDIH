@@ -1,21 +1,47 @@
-# Virtual environment
+# Virtual Environment
 venv/
 
-# Python stuff
+# Python cache & artifacts
 __pycache__/
 *.py[cod]
+*.so
 
-# Django database & settings
+# Django
 db.sqlite3
 .env
 
-# Static files
+# Static & Media Assets
 staticfiles/
 media/
 
-# IDE & OS
+# Log files
+*.log
+logs/
+
+# IDE & OS specific files
 .vscode/
 .idea/
 .DS_Store
+Thumbs.db
 
-media/
+# # Virtual environment
+# venv/
+
+# # Python stuff
+# __pycache__/
+# *.py[cod]
+
+# # Django database & settings
+# db.sqlite3
+# .env
+
+# # Static files
+# staticfiles/
+# media/
+
+# # IDE & OS
+# .vscode/
+# .idea/
+# .DS_Store
+
+# media/
