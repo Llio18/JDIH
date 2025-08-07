@@ -27,7 +27,7 @@ class KategoriDokumen(models.Model):
                 pass  # Objek tidak ditemukan
 
         if self.nama != old_name or not self.slug:
-            base_slug = slugify(self.nama) 
+            base_slug = slugify(self.nama)
             slug = base_slug
             n = 0
             while KategoriDokumen.objects.filter(slug=slug).exclude(pk=self.pk).exists():
@@ -102,10 +102,15 @@ class DokumenHukum(models.Model):
         super().save(*args, **kwargs)
 
     @classmethod
-    def cari_binary_search(cls, query):
+    def cari_binary_search(cls, query, kategori_slug=None):
         results = []
 
-        for dokumen in cls.objects.all():
+        semua_dokumen = cls.objects.all()
+
+        if kategori_slug:
+            semua_dokumen = semua_dokumen.filter(kategori__slug=kategori_slug)
+
+        for dokumen in semua_dokumen:
             kata_kata = re.findall(r'\w+', dokumen.isi_teks.lower())
 
             kata_terurut = sorted(kata_kata)

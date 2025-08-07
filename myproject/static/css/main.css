@@ -888,7 +888,7 @@ section,
   font-size: 16px;
   letter-spacing: 0.5px;
   display: inline-block;
-  padding: 14px 50px;
+  padding: 5rem 5rem;
   /* padding-top: 1rem; */
   border-radius: 5px;
   transition: 0.5s;
@@ -1171,8 +1171,7 @@ section,
 
 /*--------------------------------------------------------------
 # Starter Section Section
-
-# mystyle
+/* # mystyle
 --------------------------------------------------------------*/
 
 /* Section Hero */
@@ -1185,45 +1184,54 @@ section,
   justify-content: center;
   align-items: center;
   padding-top: 5rem;
-  /* background-color: red; */
 }
 
+/* 1. Targetkan 'form.search' sebagai wadah flex */
 .main .hero.section .cont-search .search {
-  /* background-color: green; */
-  display: flex;
-  align-items: center;
-  border-radius: 5px;
+  width: 75%;
+  padding: 8px;
+  /* background-color: grey; */
+  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 65%;
-  justify-content: center;
-  padding: 0.3rem;
-  gap: 1rem;
-  /* background-color: rebeccapurple; */
+  display: flex;
+  gap: 8px;
 }
 
-.main .hero.section .cont-search .search input {
-  text-align: center;
-  border-radius: 5px;
+/* 2. Aturan dasar untuk semua anak dari form */
+.main .hero.section .cont-search .search > * {
   border: none;
-  flex: 1;
-  font-weight: 700;
-}
-
-.main .hero.section .cont-search .search input:focus {
   outline: none;
-}
-
-.main .hero.section .cont-search .search .btn-get-started {
+  padding: 10px;
   text-align: center;
-  padding: 0.5rem;
 }
 
-.main .hero.section .cont-search .search button {
-  border: none;
+/* 3. Atur rasio pertumbuhan untuk setiap anak */
+.main .hero.section .cont-search .search input {
+  flex-grow: 5;
 }
 
-.main .hero.section .cont-search .search i {
-  margin-right: 0.3rem;
+.main .hero.section .cont-search .search .btn-cari {
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.main .hero.section .cont-search .search .btn-binary {
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+/* Aturan tambahan untuk tombol dari template Anda */
+.main .hero.section .cont-search .search .btn-get-started {
+  padding: 7px 0;
+}
+
+/* Hilangkan margin default pada ikon di dalam tombol */
+.main .hero.section .cont-search .search button i {
+  margin-right: 0;
 }
 
 /* Contact */
@@ -1239,6 +1247,62 @@ section,
   .hero .icon-box:hover .title a {
     color: var(--accent-color);
   }
+
+  .container .cont-search .search {
+    /* background-color: grey; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .container .cont-search .search input {
+    width: 100%;
+    margin: 2px 0;
+    font-size: medium;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .container .cont-search .search button {
+    width: 40%;
+    margin: 6px 2px;
+    font-size: 14px;
+    font-weight: 800;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero .icon-box:hover {
+    transform: scale(1.08);
+  }
+
+  .hero .icon-box:hover .title a {
+    color: var(--accent-color);
+  }
+
+  .container .cont-search .search {
+    /* background-color: grey; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .container .cont-search .search input {
+    width: 100%;
+    margin: 2px 0;
+    font-size: medium;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .container .cont-search .search button {
+    width: 40%;
+    margin: 6px 2px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .main .hero.section .cont-search .search .btn-get-started {
+    padding: 6px 0;
+  }
 }
 
 @media (min-width: 480px) and (max-width: 639px) {
@@ -1246,8 +1310,8 @@ section,
     width: 80%;
     font-size: 14px;
   }
-
+  /* 
   .main .hero.section .cont-search .search button {
-  font-size: 14px;
-}
+    font-size: 14px;
+  } */
 }

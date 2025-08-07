@@ -1,7 +1,11 @@
 /* Document style */
 
-.section_dokumen h2{
+.section_dokumen h2 {
   text-align: center;
+}
+.section_dokumen h2 span {
+  text-align: center;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
 }
 
 .container_dokumen {
@@ -28,8 +32,6 @@
   text-align: center;
 }
 
-
-
 .section_dokumen .btn-get-started {
   color: var(--contrast-color);
   background: var(--accent-color);
@@ -37,35 +39,43 @@
   font-size: 16px;
   letter-spacing: 0.5px;
   display: inline-block;
-  padding: 12px 1rem;
+  padding: 10px 15px;
   border-radius: 8px;
   transition: 0.5s;
   margin: 0.2rem;
   text-align: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .container_search {
+  /* background-color: red; */
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin: 1rem 0;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
-.section_dokumen .search {
+.section_dokumen .container_search .search {
+  width: 75%;
   /* background-color: grey; */
-  width: 50%;
-  align-items: center;
+  padding: 4px;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.section_dokumen .search form {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
 .section_dokumen .search input {
+  flex-grow: 1;
   text-align: center;
   outline: none;
   border: none;
-  width: 85%;
-  height: 3rem;
+  padding: 10px;
   /* background-color: red ; */
 }
 
@@ -74,7 +84,6 @@
   align-items: center;
   justify-content: center;
   border: none;
-
 }
 
 @media (max-width: 1024px) {
@@ -87,31 +96,73 @@
   .card {
     flex: 1 1 calc(33.33% - 16px); /* 3 card per baris di tablet */
   }
-  
 }
 
 @media (max-width: 600px) {
   .card {
+    font-size: 14px;
+    font-weight: 500;
     flex: 1 1 100%; /* 1 card per baris di HP */
+  }
+
+  .section_dokumen .btn-get-started {
+    color: var(--contrast-color);
+    background: var(--accent-color);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    padding: 10px 8px;
+    border-radius: 8px;
+    transition: 0.5s;
+    margin: 0.2rem;
+    text-align: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  .section_dokumen .btn-get-started:hover {
+    background-color: #0056b3;
+    color: #fff;
+  }
+
+  .section_dokumen .search form {
+    /* background-color: grey; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .section_dokumen .search form input {
+    width: 100%;
+    margin: 2px 0;
+    font-size: medium;
+  }
+
+  .section_dokumen .search form button {
+    width: 40%;
+    margin: 6px 2px;
+    font-size: 14px;
+    font-weight: 500;
   }
 }
 
 .btn-custom {
   display: inline-block;
   padding: 6px 2px;
-  background-color: #007bff; 
+  background-color: var(--accent-color);
   color: white;
   border-radius: 4px;
   text-decoration: none;
   transition: 0.3s ease;
-  width: 4rem ;
+  width: 4rem;
 }
 
 .btn-custom:hover {
   background-color: #0056b3;
+  color: #fff;
 }
 
-.row{
+.row {
   display: flex;
   justify-content: center;
 }

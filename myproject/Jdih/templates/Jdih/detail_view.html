@@ -1,17 +1,53 @@
-{% extends "base.html" %} {% block content %}{% load static %}
-
+{% extends "base.html" %} {% load static %}{% block content %} {% block detail_css %}
 <link rel="stylesheet" href="{% static 'css/detail_doc.css' %}" />
-
+{% endblock detail_css %}
 <div class="container">
-  <div class="preview_dok">
-    <iframe src="{{ dokumen.file_pdf.url }}#toolbar=0$view=fitH"> Browser kamu tidak mendukung PDF Preview {{dokumen.file_pdf.url}} </iframe>
-  </div>
-  <div class="isi_dok">
-    <h1>{{dokumen.judul}}</h1>
-    <h2>Nomor : {{dokumen.nomor}}</h2>
-    <h2>Tahun : {{dokumen.tahun}}</h2>
-    <h2>Tanggal di Tetapkan : {{dokumen.tanggal_ditetapkan}}</h2>
-    <h2>Kategori Dokumen : {{dokumen.kategori.nama}}</h2>
+  <div class="row">
+    <div class="preview_dok"><div id="pdf-container"></div></div>
+    <div class="isi_dok">
+      <h1>{{dokumen.judul}}</h1>
+      <h2>Nomor : {{dokumen.nomor}}</h2>
+      <h2>Tahun : {{dokumen.tahun}}</h2>
+      <h2>Tanggal di Tetapkan : {{dokumen.tanggal_ditetapkan}}</h2>
+      <h2>Kategori Dokumen : {{dokumen.kategori.nama}}</h2>
+      <a href="{{ dokumen.file_pdf.url }}" download class="btn btn-primary mb-3 ms-2"> <i class="bi bi-download"></i> Unduh Dokumen </a>
+    </div>
   </div>
 </div>
+
+<script type="module" src="{% static 'js/pdf.mjs' %}"></script>
+<script type="module">
+  // ... (JavaScript PDF.js Anda seperti sebelumnya) ...
+  const { pdfjsLib } = globalThis;
+  pdfjsLib.GlobalWorkerOptions.workerSrc = "{% static 'js/pdf.worker.mjs' %}";
+
+  const url = "{{ dokumen.file_pdf.url }}";
+  const container = document.getElementById("pdf-container");
+
+  const renderAllPages = async (pdfDoc) => {
+    for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+      const page = await pdfDoc.getPage(pageNum);
+      const viewport = page.getViewport({ scale: 1 }); // Sesuaikan skala awal di sini
+      const canvas = document.createElement("canvas");
+      canvas.className = "pdf-page-canvas";
+      const ctx = canvas.getContext("2d");
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      container.appendChild(canvas);
+      await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+      console.log(`Halaman ${pageNum} selesai dirender.`);
+    }
+  };
+
+  pdfjsLib
+    .getDocument(url)
+    .promise.then((pdfDoc) => {
+      console.log("PDF berhasil dimuat.");
+      renderAllPages(pdfDoc);
+    })
+    .catch((err) => {
+      console.error("Error loading PDF: " + err);
+      container.innerHTML = '<div class="alert alert-danger">Gagal memuat pratinjau PDF.</div>';
+    });
+</script>
 {% endblock content %}

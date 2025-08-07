@@ -1,53 +1,70 @@
-{% extends "base.html" %} {% block content %} {% load static %}
-
+{% extends "base.html" %} {% load static %} {% block content %}
 <link rel="stylesheet" href="{% static 'css/kategori.css' %}" />
 
 <section class="section_dokumen">
-  <h2>{{kategori}}</h2>
+  <h2>{{ kategori }}</h2>
   <div class="container_search">
     <div class="search">
       <form method="get" action="{% url 'kategori_view' kategori.slug %}">
-        <input name="cari" type="search" autofocus placeholder="Masukan Kata Kunci" value="{{request.GET.cari}}" />
-        <button type="submit" class="btn-get-started"><i class="bi bi-search"></i>cari</button>
+        <input name="cari" type="search" autofocus placeholder="Masukan Kata Kunci" value="{{ request.GET.cari|default:'' }}" />
+
+        <button type="submit" name="search_type" value="regular" class="btn-get-started {% if search_type == 'regular' %}active-search{% endif %}"><i class="bi bi-search"></i> Cari</button>
+        <button type="submit" name="search_type" value="binary" class="btn-get-started {% if search_type == 'binary' %}active-search{% endif %}"><i class="bi bi-search"></i> Dengan Binary</button>
       </form>
     </div>
   </div>
 
-  {%if query%} {%if daftar_dokumen%}
-  
   <div class="container_dokumen">
     <div class="container_card">
-      {% for dokumen in daftar_dokumen%}
+      {% for data in daftar_dokumen %}
       <div class="card">
+        {% if is_binary %}
         <div class="row">
-          <p>{{dokumen.nomor}}</p>
-          <p>{{dokumen.judul}}</p>
-          <p>Tahun {{dokumen.tahun}}</p>
-          <a class="btn-custom" href="{% url 'detail_view' dokumen.slug %}"> Detail</a>
+          <p>Nomor{{ data.dokumen.nomor|lower|capfirst }}</p>
+          <p>{{ data.dokumen.judul|lower|capfirst }}</p>
+          <p>Tahun {{ data.dokumen.tahun }}</p>
+          <p><strong>Munccul: {{ data.frekuensi }} kali</strong></p>
+          <a class="btn-custom" href="{% url 'detail_view' data.dokumen.slug %}">Detail</a>
         </div>
+        {% else %}
+        <div class="row">
+          <p>Nomor {{ data.nomor|lower|capfirst }}</p>
+          <p>{{ data.judul|lower|capfirst }}</p>
+          <p>Tahun {{ data.tahun }}</p>
+          <a class="btn-custom" href="{% url 'detail_view' data.slug %}">Detail</a>
+        </div>
+        {% endif %}
       </div>
+      {% empty %}
+      <h2>{% if query %} Data "{{ query }}" tidak ditemukan di kategori ini. {% else %} Belum ada dokumen di kategori ini. {% endif %}</h2>
       {% endfor %}
     </div>
   </div>
-    {% else %}
-    <h2>Data {{query}} Tidak ditemukan</h2>
-  </div>
-  {% endif %} {% else %}
-  <div class="container_dokumen">
-    <div class="container_card">
-      {% for dokumen in daftar_dokumen%}
-      <div class="card">
-        <div class="row">
-          <p>{{dokumen.nomor}}</p>
-          <p>{{dokumen.judul}}</p>
-          <p>Tahun {{dokumen.tahun}}</p>
-          <a class="btn-custom" href="{% url 'detail_view' dokumen.slug %}"> Detail</a>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-  {% endif %}
-</section>
 
+  <div class="text-center mt-4">
+    {% if show_all %} {% if page_obj.paginator.num_pages > 1 %}
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if query %}&cari={{ query }}&search_type={{ search_type }}{% else %}&show=all{% endif %}">«</a>
+        </li>
+        {% endif %} {% for i in page_obj.paginator.page_range %} {% if page_obj.number == i %}
+        <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+        {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}{% if query %}&cari={{ query }}&search_type={{ search_type }}{% else %}&show=all{% endif %}">{{ i }}</a></li>
+        {% elif i == page_obj.paginator.page_range.0 or i == page_obj.paginator.page_range|last %}
+        <li class="page-item disabled"><span class="page-link">...</span></li>
+        {% endif %} {% endfor %} {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if query %}&cari={{ query }}&search_type={{ search_type }}{% else %}&show=all{% endif %}">»</a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+    {% endif %} {% else %} {% if daftar_dokumen %}
+    <a href="?show=all" class="btn btn-primary">Lihat Semua Dokumen</a>
+    {% endif %} {% endif %}
+  </div>
+</section>
 {% endblock content %}
