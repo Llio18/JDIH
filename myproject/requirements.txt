@@ -1,8 +1,8 @@
-asgiref==3.8.1
+asgiref==3.9.1
 diff-match-patch==20241021
-Django==5.0.4
-django-import-export==4.3.8
-django-unfold==0.57.0
+Django==5.2.5
+django-import-export==4.3.9
+django-unfold==0.64.1
 et_xmlfile==2.0.0
 mysqlclient==2.2.7
 openpyxl==3.1.5
@@ -10,5 +10,6 @@ PyPDF2==3.0.1
 python-decouple==3.8
 sqlparse==0.5.3
 tablib==3.8.0
-tzdata==2025.1
+typing_extensions==4.14.1
+tzdata==2025.2
 whitenoise==6.9.0
