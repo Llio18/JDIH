@@ -112,7 +112,7 @@ def kategori_view(request, imput):
         'search_type': search_type,
     }
 
-    return render(request, 'JDIH/kategori.html', context)
+    return render(request, 'Jdih/kategori.html', context)
 
 
 # view untuk halaman detail
@@ -123,9 +123,9 @@ def detail_view(request, imput):
         'dokumen': dokumen,
     }
 
-    return render(request, 'JDIH/detail_view.html', context)
+    return render(request, 'Jdih/detail_view.html', context)
 
 
 # view untuk halaman seluruh dokumen
 def dokumen(request):
-    return render(request, 'JDIH/dokumen.html')
+    return render(request, 'Jdih/dokumen.html')
