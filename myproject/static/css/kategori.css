@@ -66,21 +66,22 @@
 
 .section_dokumen .search form {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   width: 100%;
 }
 
 .section_dokumen .search input {
-  flex-grow: 1;
+  flex-basis: 100%;
   text-align: center;
   outline: none;
   border: none;
   padding: 10px;
-  /* background-color: red ; */
+  border-bottom: pink solid 2px;
 }
 
 .section_dokumen .search button {
-  /* margin: 4px 4px 4px 0; */
+  flex: 1;
   align-items: center;
   justify-content: center;
   border: none;

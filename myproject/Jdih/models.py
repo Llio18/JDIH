@@ -7,6 +7,7 @@ from PyPDF2 import PdfReader
 from django.core.files import File
 import re
 from bisect import bisect_left, bisect_right
+from .utils import extract_text_smart_hybrid
 # Create your models here.
 
 
@@ -86,20 +87,18 @@ class DokumenHukum(models.Model):
 
             self.slug = slug
 
-        # 2. Ekstrak teks dari file PDF jika ada
-        if self.file_pdf:
-            try:
-                reader = PdfReader(self.file_pdf)
-                extracted_text = "\n".join(
-                    page.extract_text() for page in reader.pages if page.extract_text()
-                )
-                self.isi_teks = extracted_text
-            except Exception as e:
-                print(f"Error extracting PDF text for '{self.judul}': {e}")
-                self.isi_teks = ""
+        # cek apakah file_pdf baru
+        is_new = self._state.adding
 
-        # 3. Simpan semua perubahan ke database
         super().save(*args, **kwargs)
+
+        if is_new and self.file_pdf:
+            print("Objek baru terdeteksi, memulai ekstraksi teks...")
+
+            extracted_text = extract_text_smart_hybrid(self.file_pdf.path)
+
+            DokumenHukum.objects.filter(
+                pk=self.pk).update(isi_teks=extracted_text)
 
     @classmethod
     def cari_binary_search(cls, query, kategori_slug=None):

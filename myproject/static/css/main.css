@@ -1190,7 +1190,6 @@ section,
 .main .hero.section .cont-search .search {
   width: 75%;
   padding: 8px;
-  /* background-color: grey; */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
@@ -1208,6 +1207,7 @@ section,
 /* 3. Atur rasio pertumbuhan untuk setiap anak */
 .main .hero.section .cont-search .search input {
   flex-grow: 5;
+  border-bottom: pink solid 2px;
 }
 
 .main .hero.section .cont-search .search .btn-cari {
@@ -1249,7 +1249,6 @@ section,
   }
 
   .container .cont-search .search {
-    /* background-color: grey; */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -1259,7 +1258,6 @@ section,
     width: 100%;
     margin: 2px 0;
     font-size: medium;
-    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
   }
 
   .container .cont-search .search button {
@@ -1280,7 +1278,6 @@ section,
   }
 
   .container .cont-search .search {
-    /* background-color: grey; */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -1310,8 +1307,4 @@ section,
     width: 80%;
     font-size: 14px;
   }
-  /* 
-  .main .hero.section .cont-search .search button {
-    font-size: 14px;
-  } */
 }

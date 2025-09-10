@@ -6,7 +6,11 @@ django-unfold==0.64.1
 et_xmlfile==2.0.0
 mysqlclient==2.2.7
 openpyxl==3.1.5
+packaging==25.0
+pdf2image==1.17.0
+pillow==11.3.0
 PyPDF2==3.0.1
+pytesseract==0.3.13
 python-decouple==3.8
 sqlparse==0.5.3
 tablib==3.8.0

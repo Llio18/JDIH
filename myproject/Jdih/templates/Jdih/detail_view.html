@@ -17,7 +17,6 @@
 
 <script type="module" src="{% static 'js/pdf.mjs' %}"></script>
 <script type="module">
-  // ... (JavaScript PDF.js Anda seperti sebelumnya) ...
   const { pdfjsLib } = globalThis;
   pdfjsLib.GlobalWorkerOptions.workerSrc = "{% static 'js/pdf.worker.mjs' %}";
 
@@ -27,7 +26,7 @@
   const renderAllPages = async (pdfDoc) => {
     for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
       const page = await pdfDoc.getPage(pageNum);
-      const viewport = page.getViewport({ scale: 1 }); // Sesuaikan skala awal di sini
+      const viewport = page.getViewport({ scale: 1 });
       const canvas = document.createElement("canvas");
       canvas.className = "pdf-page-canvas";
       const ctx = canvas.getContext("2d");
