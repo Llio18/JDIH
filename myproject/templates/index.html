@@ -14,18 +14,9 @@
       </div>
       <div class="cont-search">
         <form class="search" method="get" action="{% url 'index' %}">
-          <div class="btn-group">
-            <button type="button" class="btn-detail" id="btnPencarianDetail"><i class="bi bi-sliders"></i> Pencarian Detail <i class="bi bi-chevron-down"></i></button>
-            <div class="dropdown-menu" id="menuPencarian">
-              <div class="dropdown-item">
-                <button type="submit" name="search_type" value="binary"><i class="bi bi-search"></i> dengan binary</button>
-              </div>
-            </div>
-          </div>
-
-          <input name="cari" type="search" autofocus placeholder="Cari dokumen" value="{{ request.GET.cari }}" />
-
-          <button type="submit" name="search_type" value="regular" class="btn-cari-utama"><i class="bi bi-search"></i> cari</button>
+          <input name="cari" type="search" autofocus placeholder="Masukan Kata Kunci" value="{{ request.GET.cari}}" />
+          <button type="submit" name="search_type" value="regular" class="btn-get-started btn-cari"><i class="bi bi-search"> reguler</i></button>
+          <button type="submit" name="search_type" value="binary" class="btn-get-started btn-binary"><i class="bi bi-search"> dengan binary</i></button>
         </form>
       </div>
 
@@ -70,21 +61,14 @@
         <h2>Dokumen Hukum Terbaru</h2>
         {%for dokumen in dokumen_list %}
         <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="100">
-          <a href="{% url 'detail_view' dokumen.slug%}">
-            <div class="icon-box">
-              <div class="icon">
-                <i class="bi bi-book-half"></i>
-                <h4 class="title">{{ dokumen.kategori }}</h4>
-              </div>
-              <div class="descrip_box">
-                <p class="description truncate w-65 capitalize-text">{{dokumen.judul|lower|capfirst}}</p>
-              </div>
-              <div class="descrip_footer">
-                <p class="description">Nomor {{dokumen.nomor}}</p>
-                <p>&nbsp;<span class="bi bi-eye-fill"></span> {{ dokumen.jumlah_dilihat }} <span class="bi bi-file-arrow-down-fill"> {{ dokumen.jumlah_diunduh }}</span></p>
-              </div>
-            </div>
-          </a>
+          <div class="icon-box">
+            <a href="{% url 'detail_view' dokumen.slug%}">
+              <div class="icon"><i class="bi bi-book-half"></i></div>
+              <h4 class="title">{{ dokumen.kategori }}</h4>
+            </a>
+            <p class="description">- Nomor {{dokumen.nomor}} -</p>
+            <p class="description truncate w-65 capitalize-text">{{dokumen.judul|lower|capfirst}}</p>
+          </div>
         </div>
         {% endfor %}
       </div>
@@ -97,7 +81,7 @@
             {% if page_obj.has_previous %}
             <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if query %}&cari={{ query }}&search_type={{ request.GET.search_type }}{% else %}&show=all{% endif %}">«</a></li>
             {% endif %} {% for i in page_obj.paginator.page_range %} {% if page_obj.number == i %}
-            <li class="page-item active"><span class="page-link bg-transparent text-dark">{{ i }}</span></li>
+            <li class="page-item active"><span class="page-link">{{ i }}</span></li>
             {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
             <li class="page-item"><a class="page-link" href="?page={{ i }}{% if query %}&cari={{ query }}&search_type={{ request.GET.search_type }}{% else %}&show=all{% endif %}">{{ i }}</a></li>
             {% elif i == page_obj.paginator.page_range.0 or i == page_obj.paginator.page_range|last %}
@@ -108,7 +92,7 @@
           </ul>
         </nav>
         {% endif %} {% else %}
-        <a href="?show=all" class="btn">Lihat Semua Dokumen</a>
+        <a href="?show=all" class="btn btn-primary">Lihat Semua Dokumen</a>
         {% endif %}
       </div>
     </div>
@@ -120,7 +104,7 @@
     <div>
       <h2>Dokumen Hukum</h2>
     </div>
-    <div class="container" data-aos="fade-up" data-aos="zoom-out" data-aos-delay="100">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
       <div class="row gy-4">
         {% for kategori in hitung_kategori %}
         <div class="col-lg-3 col-md-6">
@@ -128,7 +112,7 @@
             <a href="{% url 'kategori_view' kategori.slug %}">
               <i class="bi bi-book"></i>
               <span data-purecounter-start="0" data-purecounter-end="{{kategori.jumlah_dokumen}}" data-purecounter-duration="1" class="purecounter"></span>
-              <h4>{{kategori.nama}}</h4>
+              <p>{{kategori.nama}}</p>
             </a>
           </div>
         </div>
@@ -213,7 +197,7 @@
             <i class="bi bi-telephone flex-shrink-0"></i>
             <div>
               <h3>Hubungi kami</h3>
-              <p>+26 127 000 100</p>
+              <p>Hayo, isi apa di sini hayo</p>
             </div>
           </div>
           <!-- End Info Item -->

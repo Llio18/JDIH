@@ -3,24 +3,17 @@
 
 <section class="section_dokumen">
   <h2>{{ kategori }}</h2>
-  <div class="container">
-    <div class="container-search">
-      <form class="search" method="get" action="{% url 'kategori_view' kategori.slug %}">
-        <div class="btn-group">
-          <button type="button" class="btn-detail" id="btnPencarianDetail"><i class="bi bi-sliders"></i> Pencarian Detail <i class="bi bi-chevron-down"></i></button>
-          <div class="dropdown-menu" id="menuPencarian">
-            <div class="dropdown-item">
-              <button type="submit" name="search_type" value="binary" class="{% if search_type == 'binary' %}active-search{% endif %}"><i class="bi bi-search"></i> Dengan Binary</button>
-            </div>
-          </div>
-        </div>
+  <div class="container_search">
+    <div class="search">
+      <form method="get" action="{% url 'kategori_view' kategori.slug %}">
+        <input name="cari" type="search" autofocus placeholder="Masukan Kata Kunci" value="{{ request.GET.cari|default:'' }}" />
 
-        <input name="cari" type="search" autofocus placeholder="cari dokumen" value="{{ request.GET.cari|default:'' }}" />
-
-        <button type="submit" name="search_type" value="regular" class="btn-cari-utama {% if search_type == 'regular' %}active-search{% endif %}"><i class="bi bi-search"></i> cari</button>
+        <button type="submit" name="search_type" value="regular" class="btn-get-started {% if search_type == 'regular' %}active-search{% endif %}"><i class="bi bi-search"></i> Cari</button>
+        <button type="submit" name="search_type" value="binary" class="btn-get-started {% if search_type == 'binary' %}active-search{% endif %}"><i class="bi bi-search"></i> Dengan Binary</button>
       </form>
     </div>
   </div>
+
   <div class="container_dokumen">
     <div class="container_card">
       {% for data in daftar_dokumen %}
@@ -31,14 +24,14 @@
           <p>{{ data.dokumen.judul|lower|capfirst }}</p>
           <p>Tahun {{ data.dokumen.tahun }}</p>
           <p><strong>Munccul: {{ data.frekuensi }} kali</strong></p>
-          <a class="btn-custom" href="{% url 'detail_view' data.dokumen.slug %}">lihat</a>
+          <a class="btn-custom" href="{% url 'detail_view' data.dokumen.slug %}">Detail</a>
         </div>
         {% else %}
         <div class="row">
           <p>Nomor {{ data.nomor|lower|capfirst }}</p>
           <p>{{ data.judul|lower|capfirst }}</p>
           <p>Tahun {{ data.tahun }}</p>
-          <a class="btn-custom" href="{% url 'detail_view' data.slug %}">lihat</a>
+          <a class="btn-custom" href="{% url 'detail_view' data.slug %}">Detail</a>
         </div>
         {% endif %}
       </div>
@@ -70,7 +63,7 @@
       </ul>
     </nav>
     {% endif %} {% else %} {% if daftar_dokumen %}
-    <a href="?show=all" class="btn btn-get-started">lihat semua dokumen</a>
+    <a href="?show=all" class="btn btn-primary">Lihat Semua Dokumen</a>
     {% endif %} {% endif %}
   </div>
 </section>
