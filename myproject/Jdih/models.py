@@ -61,6 +61,8 @@ class DokumenHukum(models.Model):
     )
     isi_teks = models.TextField(
         "Isi Teks", blank=True, help_text="Teks ekstrak dari PDF")
+    jumlah_dilihat = models.IntegerField(default=0, editable=False)
+    jumlah_diunduh = models.IntegerField(default=0, editable=False)
     slug = models.SlugField(max_length=225, blank=True, unique=True)
 
     class Meta:

@@ -2,10 +2,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .form import FormKontak
 from .models import DokumenHukum, KategoriDokumen
-from django.db.models import Count
-from django.db.models import Q
+from django.db.models import Count, Q, F
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-# Create your views here.
 
 
 def index(request):
@@ -117,13 +115,27 @@ def kategori_view(request, imput):
 
 # view untuk halaman detail
 def detail_view(request, imput):
-    dokumen = DokumenHukum.objects.get(slug=imput)
+    dokumen = get_object_or_404(DokumenHukum, slug=imput)
+
+    dokumen.jumlah_dilihat = F('jumlah_dilihat') + 1
+    dokumen.save(update_fields=['jumlah_dilihat'])
+
+    dokumen.refresh_from_db()
 
     context = {
         'dokumen': dokumen,
     }
 
     return render(request, 'Jdih/detail_view.html', context)
+
+
+def unduh_dokumen(request, imput):
+    dokumen = get_object_or_404(DokumenHukum, slug=imput)
+
+    dokumen.jumlah_diunduh = F('jumlah_diunduh') + 1
+    dokumen.save(update_fields=['jumlah_diunduh'])
+
+    return redirect(dokumen.file_pdf.url)
 
 
 # view untuk halaman seluruh dokumen

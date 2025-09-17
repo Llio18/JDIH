@@ -12,14 +12,14 @@
 --------------------------------------------------------------*/
 /* Fonts */
 :root {
-  --default-font: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --default-font: "Poppins", "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --heading-font: "Raleway", sans-serif;
   --nav-font: "Poppins", sans-serif;
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
 :root {
-  --background-color: #ffffff; /* Background color for the entire website, including individual sections */
+  --background-color: #ffffff; /*#ffffff Background color for the entire website, including individual sections */
   --default-color: #444444; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #124265; /* Color for headings, subheadings and title throughout the website */
   --accent-color: #2487ce; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
@@ -29,8 +29,8 @@
 
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
-  --nav-color: #124265; /* The default color of the main navmenu links */
-  --nav-hover-color: #2487ce; /* Applied to main navmenu links when they are hovered over or active */
+  --nav-color: white; /*#124265 The default color of the main navmenu links */
+  --nav-hover-color: #2487ce; /*#2487ce Applied to main navmenu links when they are hovered over or active */
   --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
   --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
   --nav-dropdown-color: #124265; /* Used for navigation links of the dropdown items in the navigation menu. */
@@ -232,7 +232,7 @@ h6 {
 --------------------------------------------------------------*/
 .header {
   color: var(--default-color);
-  background-color: var(--background-color);
+  background-color: var(--heading-color);
   padding: 20px 0;
   transition: all 0.5s;
   z-index: 997;
@@ -252,7 +252,7 @@ h6 {
   font-size: 30px;
   margin: 0;
   font-weight: 300;
-  color: var(--heading-color);
+  color: white;
 }
 
 .header .btn-getstarted,
@@ -535,11 +535,13 @@ h6 {
 --------------------------------------------------------------*/
 .footer {
   color: var(--default-color);
-  background-color: var(--background-color);
   border-top: 1px solid color-mix(in srgb, var(--accent-color), transparent 80%);
   font-size: 14px;
-  padding-bottom: 50px;
+  padding-bottom: 10px;
   position: relative;
+  background: linear-gradient(to left bottom, #2e67b2, #7db9e8, #9fd6ff, #ffffff);
+  background-attachment: fixed;
+  min-height: 10vh;
 }
 
 .footer .footer-top {
@@ -637,19 +639,15 @@ h6 {
 }
 
 .footer .copyright {
-  padding-top: 25px;
-  padding-bottom: 25px;
-  background-color: var(--accent-color);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: var(--heading-color);
   color: var(--contrast-color);
+  border-radius: 5px;
 }
 
 .footer .copyright p {
   margin-bottom: 0;
-}
-
-.footer .credits {
-  margin-top: 4px;
-  font-size: 13px;
 }
 
 .footer .credits a {
@@ -877,10 +875,6 @@ section,
   }
 }
 
-/* .hero .cont-search {
-
-} */
-
 .hero .btn-get-started {
   color: var(--contrast-color);
   background: var(--accent-color);
@@ -916,24 +910,36 @@ section,
   overflow: hidden;
   box-shadow: 0 0 29px 0 rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
-  border-radius: 8px;
+  border-radius: 10px;
   z-index: 1;
   text-transform: capitalize;
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.hero .icon-box .title {
+.hero .icon-box .icon {
+  justify-content: space-around;
+  align-items: center;
+}
+
+.hero .icon-box .icon .title {
   font-weight: 700;
-  margin-bottom: 15px;
-  font-size: 18px;
+  font-size: 15px;
+}
+
+.hero .icon-box .descrip_box {
+  flex-grow: 1;
+  margin-bottom: 10px;
 }
 
 .hero .icon-box .description {
   font-size: 15px;
   margin-bottom: 0;
   max-height: 90px;
-  color: color-mix(in srgb, var(--default-color), transparent 40%);
+  /* color: color-mix(in srgb, var(--default-color), transparent 40%); */
+  color: var(--default-color);
 }
 
 .hero .icon-box .description.truncate.w-65 {
@@ -945,6 +951,28 @@ section,
   width: 200px;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  margin-bottom: 5px;
+}
+
+.hero .icon-box .descrip_footer {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  border-radius: 5px;
+  padding: 0 5px 5px 5px;
+  background-color: color-mix(in srgb, var(--accent-color), transparent 70%);
+}
+
+.hero .icon-box .descrip_footer .description {
+  font-size: 10px;
+  color: var(--heading-color);
+  font-weight: 500;
+}
+
+.hero .icon-box .descrip_footer p,
+.hero .icon-box .descrip_footer p span {
+  font-size: 12px;
+  color: var(--heading-color);
 }
 
 .hero .icon-box .icon,
@@ -956,7 +984,6 @@ section,
   font-size: 36px;
   line-height: 1;
   color: var(--accent-color);
-  justify-content: center;
 }
 
 /*--------------------------------------------------------------
@@ -979,28 +1006,6 @@ section,
   color: var(--accent-color);
 }
 
-.about .read-more {
-  background: var(--accent-color);
-  color: var(--contrast-color);
-  font-family: var(--heading-font);
-  font-weight: 500;
-  font-size: 16px;
-  letter-spacing: 1px;
-  padding: 10px 28px;
-  border-radius: 5px;
-  transition: 0.3s;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.about .read-more i {
-  font-size: 18px;
-  margin-left: 5px;
-  line-height: 0;
-  transition: 0.3s;
-}
-
 .about .read-more:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
@@ -1016,47 +1021,64 @@ section,
   padding: 30px 0;
 }
 
+.stats h2 {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
 .stats .row {
   display: flex;
   justify-content: center;
 }
 
 .stats .stats-item {
-  padding: 30px;
+  /* background-color: gray; */
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease-in-out;
+  padding: 10px;
+  border-radius: 5%;
+  /* border: 1px solid gray; */
   width: 100%;
 }
 
-.stats h2 {
-  text-align: center;
-  font-size: 32px;
-  font-weight: 700;
+.stats a {
+  /* background-color: yellow; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  row-gap: 15px;
 }
 
-/* .stats i {
-  margin-bottom: 20px;
-  padding-top: 10px;
+.stats .stats-item a i {
+  /* background-color: yellow; */
+  padding-top: 25px;
   display: flex;
   transition: all 0.3s ease-in-out;
-  font-size: 36px;
+  font-size: 48px;
   line-height: 1;
   color: var(--accent-color);
-  justify-content: center;
-} */
+  margin-right: 50px;
+}
 
-.stats .stats-item span {
+.stats .stats-item a span {
+  /* background-color: red; */
   font-size: 48px;
-  display: block;
   color: var(--accent-color);
   font-weight: 700;
 }
 
-.stats .stats-item p {
-  color: color-mix(in srgb, var(--default-color), transparent 40%);
-  padding: 0;
-  margin: 0;
+.stats .stats-item a h4 {
+  /* background-color: salmon; */
+  /* color: color-mix(in srgb, var(--default-color), transparent 40%); */
+  color: var(--heading-color);
   font-family: var(--heading-font);
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 600;
+  flex-basis: 100%;
+  text-align: center;
 }
 
 /*--------------------------------------------------------------
@@ -1103,7 +1125,7 @@ section,
 
 .contact .info-item i {
   color: var(--contrast-color);
-  background: var(--accent-color);
+  background: var(--heading-color);
   font-size: 20px;
   width: 44px;
   height: 44px;
@@ -1141,7 +1163,7 @@ section,
   border-radius: 0;
   color: var(--default-color);
   background-color: color-mix(in srgb, var(--background-color), transparent 50%);
-  border-color: color-mix(in srgb, var(--default-color), transparent 80%);
+  border-color: color-mix(in srgb, var(--heading-color), transparent 80%);
 }
 
 .contact .php-email-form input[type="text"]:focus,
@@ -1153,12 +1175,12 @@ section,
 .contact .php-email-form input[type="text"]::placeholder,
 .contact .php-email-form input[type="email"]::placeholder,
 .contact .php-email-form textarea::placeholder {
-  color: color-mix(in srgb, var(--default-color), transparent 70%);
+  color: color-mix(in srgb, var(--heading-color), transparent 70%);
 }
 
 .contact .php-email-form button[type="submit"] {
   color: var(--contrast-color);
-  background: var(--accent-color);
+  background: var(--heading-color);
   border: 0;
   padding: 10px 30px;
   transition: 0.4s;
@@ -1174,7 +1196,30 @@ section,
 /* # mystyle
 --------------------------------------------------------------*/
 
+/* for about section */
+.about {
+  background: linear-gradient(to left bottom, #2e67b2, #7db9e8, #9fd6ff, #ffffff);
+  background-attachment: fixed;
+  min-height: 10vh;
+}
+
 /* Section Hero */
+.main .hero .container a {
+  color: white;
+  background-color: var(--heading-color);
+}
+.main .hero .container .text-center li:active {
+  color: white;
+  background-color: var(--heading-color);
+}
+
+.main .hero .container a:hover {
+  color: rgb(22, 22, 22);
+  background-color: var(--accent-color);
+  transition: all 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+}
+
 .main .hero.section span {
   color: var(--accent-color);
 }
@@ -1186,7 +1231,8 @@ section,
   padding-top: 5rem;
 }
 
-/* 1. Targetkan 'form.search' sebagai wadah flex */
+/* star for search */
+/* Atur form utama agar semua elemen sejajar */
 .main .hero.section .cont-search .search {
   width: 75%;
   padding: 8px;
@@ -1194,81 +1240,140 @@ section,
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   gap: 8px;
+  align-items: center;
 }
 
-/* 2. Aturan dasar untuk semua anak dari form */
-.main .hero.section .cont-search .search > * {
+/* Atur input field agar fleksibel */
+.main .hero.section .cont-search .search input {
+  flex-grow: 1;
   border: none;
+  border-bottom: 2px solid var(--accent-color);
   outline: none;
   padding: 10px;
-  text-align: center;
+  font-size: 16px;
+}
+.main .hero.section .cont-search .search input:focus {
+  border-bottom-color: var(--heading-color, #0d6efd);
 }
 
-/* 3. Atur rasio pertumbuhan untuk setiap anak */
-.main .hero.section .cont-search .search input {
-  flex-grow: 5;
-  border-bottom: pink solid 2px;
+/* 1. Wadah dropdown */
+.hero.section .btn-group {
+  position: relative;
+  display: inline-block;
+  max-width: fit-content;
 }
 
-.main .hero.section .cont-search .search .btn-cari {
-  flex-grow: 1;
-  justify-content: center;
-  align-items: center;
+/* 2. Tombol pemicu dropdown */
+.btn-detail {
+  background-color: #f8f9fa;
+  color: #333;
+  border: 2px solid var(--heading-color);
+  padding: 10px 5px;
+  border-radius: 6px;
+  cursor: pointer;
   display: flex;
-}
-
-.main .hero.section .cont-search .search .btn-binary {
-  flex-grow: 1;
-  justify-content: center;
   align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+/* 3. Menu dropdown yang tersembunyi */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  min-width: 120px; /* Lebar menu */
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  border-radius: 6px;
+  border: 2px solid var(--heading-color);
+  padding: 2px 0;
+  top: 110%;
+  left: 0;
+}
+
+/* 4. Kelas 'show' untuk menampilkan menu (ditambahkan oleh JavaScript) */
+.dropdown-menu.show {
+  display: block;
+}
+
+/* 5. Item di dalam menu dropdown */
+.dropdown-item {
+  border: none;
+  width: 100%;
   display: flex;
+  justify-content: space-around;
+  cursor: pointer;
 }
 
-/* Aturan tambahan untuk tombol dari template Anda */
-.main .hero.section .cont-search .search .btn-get-started {
-  padding: 7px 0;
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+  transition: all 0.3s;
+}
+.dropdown-item button {
+  background: none;
+  border: none;
+  padding: 2px 5px;
+  text-decoration: none;
+  text-align: left;
+  cursor: pointer;
+  color: #333;
 }
 
-/* Hilangkan margin default pada ikon di dalam tombol */
-.main .hero.section .cont-search .search button i {
-  margin-right: 0;
+.dropdown-item button:hover {
+  background-color: var(--heading-color);
+  color: white;
+  border: 2px solid var(--heading-color);
+  padding: 2px 10px;
+  border-radius: 6px;
 }
+
+/* Tombol Cari Data Utama */
+.btn-cari-utama {
+  background-color: var(--heading-color); /* Warna biru primer */
+  color: white;
+  border: none;
+  padding: 10px 13px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.btn-cari-utama:hover {
+  background-color: #0b5ed7; /* Warna biru lebih gelap saat hover */
+  transition: all 0.3s;
+}
+/* end for search */
 
 /* Contact */
 .main .contact.section .container .mb-4 iframe {
   width: 100%;
 }
 
+/* untuk navigasi pagination */
+.hero .page-item.active .page-link {
+  background-color: transparent !important;
+  border-color: var(--heading-color) !important;
+  color: var(--heading-color) !important;
+}
+
+/* Untuk navigasi paginasi */
+
 @media (min-width: 640px) {
   .hero .icon-box:hover {
     transform: scale(1.08);
   }
 
+  .stats .stats-item:hover {
+    transform: scale(1.08);
+  }
+
   .hero .icon-box:hover .title a {
     color: var(--accent-color);
   }
-
-  .container .cont-search .search {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .container .cont-search .search input {
-    width: 100%;
-    margin: 2px 0;
-    font-size: medium;
-  }
-
-  .container .cont-search .search button {
-    width: 40%;
-    margin: 6px 2px;
-    font-size: 14px;
-    font-weight: 800;
-  }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .hero .icon-box:hover {
     transform: scale(1.08);
   }
@@ -1277,34 +1382,41 @@ section,
     color: var(--accent-color);
   }
 
-  .container .cont-search .search {
+  .cont-search .search {
+    width: 100%;
+    max-width: 800px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
+    gap: 5px;
   }
 
-  .container .cont-search .search input {
-    width: 100%;
-    margin: 2px 0;
-    font-size: medium;
-    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+  /* Atur input field */
+  .cont-search .search input {
+    flex-basis: 100%;
+    order: 1;
+    border-bottom: 2px solid var(--heading-color);
+    outline: none;
+    padding: 10px;
+    font-size: 16px;
   }
 
-  .container .cont-search .search button {
-    width: 40%;
-    margin: 6px 2px;
-    font-size: 14px;
-    font-weight: 500;
+  /* Atur kedua tombol */
+  .cont-search .btn-group,
+  .cont-search .btn-cari-utama {
+    order: 2;
   }
 
-  .main .hero.section .cont-search .search .btn-get-started {
-    padding: 6px 0;
+  .cont-search .btn-group {
+    max-width: fit-content;
   }
-}
 
-@media (min-width: 480px) and (max-width: 639px) {
-  .main .hero.section .cont-search .search {
-    width: 80%;
-    font-size: 14px;
+  /* Atur agar tombol "Cari Data" lebih fleksibel */
+  .cont-search .btn-cari-utama {
+    flex-grow: 1;
+    max-width: fit-content;
   }
 }
