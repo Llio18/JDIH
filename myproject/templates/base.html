@@ -38,6 +38,9 @@
   </head>
 
   <body class="index-page">
+    <!-- Preloader -->
+    <div id="preloader"></div>
+
     <!-- Navbar start -->
     {% include "snipets/header.html" %}
     <!-- Navbar End -->
@@ -53,10 +56,8 @@
     <!-- Scroll Top -->
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-    <!-- Preloader -->
-    <div id="preloader"></div>
-
     <!-- Vendor JS Files -->
+    {% block scripts %}
     <script src=" {% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %} "></script>
     <script src=" {% static 'vendor/php-email-form/validate.js' %} "></script>
     <script src=" {% static 'vendor/aos/aos.js' %} "></script>
@@ -68,5 +69,6 @@
 
     <!-- Main JS File -->
     <script src=" {% static 'js/main.js' %} "></script>
+    {% endblock scripts %}
   </body>
 </html>

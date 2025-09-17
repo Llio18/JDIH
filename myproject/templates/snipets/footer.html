@@ -15,9 +15,9 @@
       </div>
 
       <div class="col-lg-2 col-6 footer-links">
-        <h4>links</h4>
+        <h4>Tautan</h4>
         <ul>
-          <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'index' %}">Beranda</a></li>
           {%for kategori in daftar_kategori%}
           <li><a href="{% url 'kategori_view' kategori.slug %}">{{kategori.nama}}</a></li>
           {% endfor %}
@@ -34,7 +34,6 @@
   </div>
 
   <div class="container copyright text-center mt-4">
-    <p>© <span>Copyright</span> <strong class="px-1 sitename">OnePage</strong> <span>All Rights Reserved</span></p>
-    <div class="credits">Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Distributed by <a href=“https://themewagon.com>ThemeWagon</div>
-  </div>
+    <p>© <span>TI UNIMA</span> <span>All Rights Reserved</span></p>
+    <p>Develop by <strong>Llio18</strong>  | <strong>TI UNIMA</strong> </p>
 </footer>

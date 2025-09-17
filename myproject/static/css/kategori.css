@@ -1,4 +1,7 @@
 /* Document style */
+.section_dokumen {
+  background-image: url("../images/hero-bg-abstract.jpg");
+}
 
 .section_dokumen h2 {
   text-align: center;
@@ -34,8 +37,8 @@
 
 .section_dokumen .btn-get-started {
   color: var(--contrast-color);
-  background: var(--accent-color);
-  font-weight: 600;
+  background: var(--heading-color);
+  font-weight: 500;
   font-size: 16px;
   letter-spacing: 0.5px;
   display: inline-block;
@@ -48,7 +51,7 @@
   cursor: pointer;
 }
 
-.container_search {
+.container-search {
   /* background-color: red; */
   display: flex;
   justify-content: center;
@@ -56,46 +59,184 @@
   margin-top: 1rem;
 }
 
-.section_dokumen .container_search .search {
-  width: 75%;
-  /* background-color: grey; */
-  padding: 4px;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.btn-custom {
+  display: inline-block;
+  padding: 6px 2px;
+  background-color: var(--heading-color);
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: 0.3s ease;
+  width: 4rem;
 }
 
-.section_dokumen .search form {
+.btn-custom:hover {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+.container_dokumen .row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  width: 100%;
-}
-
-.section_dokumen .search input {
-  flex-basis: 100%;
-  text-align: center;
-  outline: none;
-  border: none;
-  padding: 10px;
-  border-bottom: pink solid 2px;
-}
-
-.section_dokumen .search button {
-  flex: 1;
-  align-items: center;
   justify-content: center;
+}
+
+/* Atur form utama agar semua elemen sejajar */
+.container-search .search {
+  width: 75%;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Atur input field agar fleksibel */
+.container-search .search input {
+  flex-grow: 1;
   border: none;
+  border-bottom: 2px solid var(--heading-color);
+  outline: none;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.container-search .search input:focus {
+  border-bottom-color: var(--heading-color, #0d6efd);
+}
+
+/* 1. Wadah dropdown */
+.container-search .btn-group {
+  position: relative;
+  display: inline-block;
+}
+
+/* 2. Tombol pemicu dropdown */
+.container-search .btn-detail {
+  background-color: #f8f9fa;
+  color: #333;
+  border: 1px solid var(--heading-color);
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+/* 3. Menu dropdown yang tersembunyi */
+.container-search .dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  min-width: 180px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  border-radius: 6px;
+  border: 2px solid var(--heading-color);
+  padding: 5px 0;
+  top: 110%;
+  left: 0;
+}
+
+/* 4. Kelas 'show' untuk menampilkan menu (ditambahkan oleh JavaScript) */
+.container-search .dropdown-menu.show {
+  display: block;
+}
+
+/* 5. Item di dalam menu dropdown */
+.container-search .dropdown-item {
+  border: none;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  cursor: pointer;
+}
+
+.container-search .dropdown-item:hover {
+  background-color: #f1f1f1;
+  transition: all 0.3s;
+}
+
+.dropdown-item button {
+  background: none;
+  border: none;
+  padding: 2px 10px;
+  text-decoration: none;
+  text-align: left;
+  cursor: pointer;
+  color: #333;
+}
+
+.dropdown-item button:hover {
+  background-color: var(--heading-color);
+  color: white;
+  border: 2px solid var(--heading-color);
+  padding: 2px 10px;
+  border-radius: 6px;
+}
+
+/* Tombol Cari Data Utama */
+.container-search .btn-cari-utama {
+  background-color: var(--heading-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.btn-cari-utama:hover {
+  background-color: var(--accent-color);
 }
 
 @media (max-width: 1024px) {
   .card {
-    flex: 1 1 calc(50% - 16px); /* 2 card per baris di tablet */
+    flex: 1 1 calc(50% - 16px);
   }
 }
 
 @media (max-width: 768px) {
+  .container-search .search {
+    width: 95%;
+    max-width: 600px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 15px;
+  }
+
+  /* Atur input field */
+  .container-search .search input {
+    flex-basis: 100%; 
+    order: 1;  
+    border: none;
+    border-bottom: 2px solid var(--heading-color);
+    outline: none;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  /* Atur kedua tombol */
+  .container-search .btn-group,
+  .container-search .btn-cari-utama {
+    order: 2;
+  }
+
+  /* Atur agar tombol "Cari Data" lebih fleksibel */
+  .container-search .btn-cari-utama {
+    flex-grow: 1;
+    max-width: fit-content;
+  }
+
   .card {
-    flex: 1 1 calc(33.33% - 16px); /* 3 card per baris di tablet */
+    flex: 1 1 calc(33.33% - 16px);
   }
 }
 
@@ -103,12 +244,12 @@
   .card {
     font-size: 14px;
     font-weight: 500;
-    flex: 1 1 100%; /* 1 card per baris di HP */
+    flex: 1 1 100%;
   }
 
   .section_dokumen .btn-get-started {
-    color: var(--contrast-color);
-    background: var(--accent-color);
+    color: var(--heading-color);
+    background: var(--heading-color);
     font-weight: 500;
     font-size: 14px;
     letter-spacing: 0.5px;
@@ -125,45 +266,4 @@
     background-color: #0056b3;
     color: #fff;
   }
-
-  .section_dokumen .search form {
-    /* background-color: grey; */
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .section_dokumen .search form input {
-    width: 100%;
-    margin: 2px 0;
-    font-size: medium;
-  }
-
-  .section_dokumen .search form button {
-    width: 40%;
-    margin: 6px 2px;
-    font-size: 14px;
-    font-weight: 500;
-  }
-}
-
-.btn-custom {
-  display: inline-block;
-  padding: 6px 2px;
-  background-color: var(--accent-color);
-  color: white;
-  border-radius: 4px;
-  text-decoration: none;
-  transition: 0.3s ease;
-  width: 4rem;
-}
-
-.btn-custom:hover {
-  background-color: #0056b3;
-  color: #fff;
-}
-
-.row {
-  display: flex;
-  justify-content: center;
 }
