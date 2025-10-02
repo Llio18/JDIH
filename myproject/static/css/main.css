@@ -975,6 +975,11 @@ section,
   color: var(--heading-color);
 }
 
+.hero .icon-box .descrip_frekuensi {
+  font-size: 12px;
+  color: var(--heading-color);
+}
+
 .hero .icon-box .icon,
 .stats i {
   margin-bottom: 20px;
