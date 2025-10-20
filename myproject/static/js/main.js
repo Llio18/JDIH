@@ -1,4 +1,3 @@
-
 (function () {
   "use strict";
 
@@ -236,3 +235,76 @@
     }
   });
 })();
+
+document.addEventListener("DOMContentLoaded", function () {
+  const contactForm = document.getElementById("contactForm");
+
+  if (contactForm) {
+    contactForm.addEventListener("submit", function (e) {
+      e.preventDefault(); // Mencegah form me-reload halaman
+
+      // Ambil elemen-elemen dari template
+      const submitBtn = document.getElementById("submitBtn");
+      const loadingMessage = contactForm.querySelector(".loading");
+      const errorMessage = contactForm.querySelector(".error-message");
+      const sentMessage = contactForm.querySelector(".sent-message");
+
+      // 1. Tampilkan status "Loading"
+      if (loadingMessage) loadingMessage.style.display = "block";
+      if (errorMessage) errorMessage.style.display = "none";
+      if (sentMessage) sentMessage.style.display = "none";
+      if (submitBtn) submitBtn.disabled = true;
+
+      const formData = new FormData(contactForm);
+      const url = contactForm.getAttribute("action");
+
+      fetch(url, {
+        method: "POST",
+        body: formData,
+        headers: {
+          "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            // 2. Jika SUKSES: Tampilkan pesan berhasil
+            if (loadingMessage) loadingMessage.style.display = "none";
+            if (sentMessage) sentMessage.style.display = "block";
+
+            // Kosongkan form setelah berhasil
+            contactForm.reset();
+
+            // Aktifkan kembali tombol setelah beberapa saat
+            setTimeout(() => {
+              if (submitBtn) submitBtn.disabled = false;
+              if (sentMessage) sentMessage.style.display = "none";
+            }, 5000); // Pesan sukses akan hilang setelah 5 detik
+          } else {
+            // 3. Jika GAGAL: Tampilkan pesan error dari Django
+            let errorText = "";
+            for (const field in data.errors) {
+              errorText += `${data.errors[field][0]}\n`;
+            }
+
+            if (loadingMessage) loadingMessage.style.display = "none";
+            if (errorMessage) {
+              errorMessage.innerHTML = errorText;
+              errorMessage.style.display = "block";
+            }
+            if (submitBtn) submitBtn.disabled = false; // Aktifkan tombol agar bisa diperbaiki
+          }
+        })
+        .catch((error) => {
+          // 4. Jika terjadi ERROR TEKNIS
+          console.error("Error:", error);
+          if (loadingMessage) loadingMessage.style.display = "none";
+          if (errorMessage) {
+            errorMessage.innerHTML = "Terjadi kesalahan teknis. Silakan coba lagi.";
+            errorMessage.style.display = "block";
+          }
+          if (submitBtn) submitBtn.disabled = false; // Aktifkan tombol
+        });
+    });
+  }
+});

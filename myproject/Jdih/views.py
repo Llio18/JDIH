@@ -1,12 +1,28 @@
 
+from turtle import title
 from django.shortcuts import render, redirect, get_object_or_404
 from .form import FormKontak
-from .models import DokumenHukum, KategoriDokumen
+from .models import DokumenHukum, KategoriDokumen, Kontak
 from django.db.models import Count, Q, F
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import JsonResponse
 
 
 def index(request):
+    title = "JDIH UNIMA"
+    if request.method == 'POST':
+        f_kontak = FormKontak(request.POST)
+        if f_kontak.is_valid():
+            # Menggunakan get_or_create untuk mencegah data duplikat
+            Kontak.objects.get_or_create(
+                nama=f_kontak.cleaned_data.get('nama'),
+                email=f_kontak.cleaned_data.get('email'),
+                pesan=f_kontak.cleaned_data.get('pesan')
+            )
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'errors': f_kontak.errors})
+
     query = request.GET.get('cari')
     search_type = request.GET.get('search_type', 'regular')
 
@@ -14,10 +30,11 @@ def index(request):
 
     if query:
         if search_type == 'binary':
+            title = f'pencarian binary'
             hasil_pencarian = DokumenHukum.cari_binary_search(query)
             is_binary = True
         else:
-            # Hasilnya adalah sebuah QUERYSET
+            title = f'pencarian reguler'
             hasil_pencarian = DokumenHukum.objects.filter(
                 Q(judul__icontains=query) |
                 Q(nomor__icontains=query) |
@@ -29,9 +46,11 @@ def index(request):
     else:
         is_binary = False
         if show_all:
+            title = "Semua Dokumen Hukum"
             hasil_pencarian = DokumenHukum.objects.all()
         else:
-            hasil_pencarian = DokumenHukum.objects.all()[:12]
+            hasil_pencarian = DokumenHukum.objects.all().order_by(
+                'tahun')[:12]
 
     page_obj = None
     if show_all:
@@ -43,13 +62,7 @@ def index(request):
         jumlah_dokumen=Count('dokumenhukum')
     ).order_by('nama')
 
-    if request.method == 'POST':
-        f_kontak = FormKontak(request.POST or None)
-        if f_kontak.is_valid():
-            f_kontak.save()
-            return redirect('index')
-    else:
-        f_kontak = FormKontak()
+    f_kontak = FormKontak()
 
     context = {
         'hitung_kategori': hitung_kategori,
@@ -59,6 +72,7 @@ def index(request):
         'is_binary': is_binary,
         'show_all': show_all,
         'dokumen_list': page_obj if show_all else hasil_pencarian,
+        'title': title,
     }
 
     return render(request, 'index.html', context)
@@ -71,6 +85,7 @@ def kategori_view(request, imput):
     kategori = get_object_or_404(KategoriDokumen, slug=imput)
     show_all = request.GET.get('show') == 'all'
     is_binary = False
+    title = f"{kategori.nama} - JDIH UNIMA"
 
     if query:
         if search_type == 'binary':
@@ -108,6 +123,7 @@ def kategori_view(request, imput):
         'query': query,
         'is_binary': is_binary,
         'search_type': search_type,
+        'title': title,
     }
 
     return render(request, 'Jdih/kategori.html', context)
@@ -115,6 +131,7 @@ def kategori_view(request, imput):
 
 # view untuk halaman detail
 def detail_view(request, imput):
+    title = "Detail Dokumen Dokumen Hukum"
     dokumen = get_object_or_404(DokumenHukum, slug=imput)
 
     dokumen.jumlah_dilihat = F('jumlah_dilihat') + 1
@@ -124,6 +141,7 @@ def detail_view(request, imput):
 
     context = {
         'dokumen': dokumen,
+        'title': title,
     }
 
     return render(request, 'Jdih/detail_view.html', context)

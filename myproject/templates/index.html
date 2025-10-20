@@ -245,21 +245,19 @@
         </div>
 
         <div class="col-lg-8">
-          <form action="/" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+          <form action="{% url 'index' %}" method="post" class="f_kontak" id="contactForm" data-aos="fade-up" data-aos-delay="200">
             {% csrf_token %}
             <div class="row gy-4">
               <div class="col-md-6">{{f_kontak.nama}}</div>
-
               <div class="col-md-6">{{f_kontak.email}}</div>
-
               <div class="col-md-12">{{f_kontak.pesan}}</div>
-
               <div class="col-md-12 text-center">
                 <div class="loading">Loading</div>
                 <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
+                <div class="sent-message">Pesan anda berhasil terkirim. Terimakasih😊</div>
+
+                <button type="submit" id="submitBtn">Kirim</button>
               </div>
-              <button type="submit">Kirim</button>
             </div>
           </form>
         </div>
