@@ -1,5 +1,3 @@
-
-from turtle import title
 from django.shortcuts import render, redirect, get_object_or_404
 from .form import FormKontak
 from .models import DokumenHukum, KategoriDokumen, Kontak
