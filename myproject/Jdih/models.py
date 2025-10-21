@@ -95,7 +95,6 @@ class DokumenHukum(models.Model):
         super().save(*args, **kwargs)
 
         if is_new and self.file_pdf:
-            print("Objek baru terdeteksi, memulai ekstraksi teks...")
 
             extracted_text = extract_text_smart_hybrid(self.file_pdf.path)
 

@@ -1,9 +1,11 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/header.css' %}" />
 <header id="header" class="header d-flex align-items-center sticky-top">
   <div class="container-fluid container-xl position-relative d-flex align-items-center">
-    <a href="/" class="logo d-flex align-items-center me-auto">
+    <a href="/" class="d-flex align-items-center me-auto">
       <!-- Uncomment the line below if you also wish to use an image logo -->
-      {% comment %} <img src="assets/img/logo.png" alt="" /> {% endcomment %}
-      <h1 class="sitename">JDIH UNIMA</h1>
+      <img src=" {% static 'images/logo_unima.png' %}" alt="" class="logo_img" />
+      <img src=" {% static 'images/logo_blu.png' %}" alt="" class="logo_img" />
     </a>
 
     <nav id="navmenu" class="navmenu">

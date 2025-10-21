@@ -38,6 +38,7 @@ def index(request):
             hasil_pencarian = DokumenHukum.objects.filter(
                 Q(judul__icontains=query) |
                 Q(nomor__icontains=query) |
+                Q(tahun__icontains=query) |
                 Q(kategori__nama__icontains=query)
             ).order_by('-tahun')
             is_binary = False
