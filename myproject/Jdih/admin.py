@@ -14,8 +14,9 @@ class CustomAdminClass(ModelAdmin, ImportExportModelAdmin):
 
     list_display = ('nomor', 'judul', 'tahun',
                     'tanggal_ditetapkan', 'kategori')
-    import_form_class = ImportForm
+    search_fields = ('judul', 'nomor', 'tahun', 'kategori__nama')
     export_form_class = ExportForm
+    import_form_class = ImportForm
 
 
 @admin.register(KategoriDokumen)
